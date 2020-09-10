@@ -4,64 +4,26 @@ var Main = function () {
 
 Main.fn = Main.prototype = {
     config: {
-        selectorSelectorCallModalAdvisory : '.js__btn-advisory',
-        selectorSliderTop : '.js__slider-top',
-        selectorSliderThumb : '.js__gallery-thumbs',
-        selectorCopyReceive : '.js__copy-receive',
-        selectorInfoRegister: '.js__info-register',
-        selectorInfoReceive: '.js__info-receive',
+        selectorSliderNewsHome : '.js__slider-news-home',
     },
 
     init: function () {
-        this.handleModalAdvisory();
         this.initSlider();
-        this.handleCopyReceive();
     },
 
-    handleModalAdvisory: function() {
-        var self = this;
 
-        $(self.config.selectorSelectorCallModalAdvisory).click(function(){
-            $("#js__modal-form-advisory").modal("show");
-        });
-    },
     initSlider :function() {
-        const self = this;
-        var thumb = new Swiper(self.config.selectorSliderThumb, {
-            spaceBetween: 10,
-            slidesPerView: 4,
-            loop: true,
-            freeMode: true,
-            loopedSlides: 5, //looped slides should be the same
-            watchSlidesVisibility: true,
-            watchSlidesProgress: true,
-        });
-        new Swiper(self.config.selectorSliderTop, {
-            spaceBetween: 10,
-            loop: true,
-            loopedSlides: 5, //looped slides should be the same
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            thumbs: {
-                swiper: thumb,
-            },
-        });
+       $(this.config.selectorSliderNewsHome).slick({
+           centerPadding: '30px',
+           slidesToShow: 3,
+           slidesToScroll: 3,
+           arrows: false,
+           autoplay:true,
+           dots: true,
+           speed: 500,
+       });
     },
 
-    handleCopyReceive: function() {
-        var self = this;
-
-        $(self.config.selectorCopyReceive).click(function(e){
-            e.preventDefault();
-            console.log($(self.config.selectorInfoRegister + ' [name="Bill[fullname]"]').val());
-            $(self.config.selectorInfoReceive + ' [name="Bill[receive_fullname]"]').val($(self.config.selectorInfoRegister + ' [name="Bill[fullname]"]').val());
-            $(self.config.selectorInfoReceive + ' [name="Bill[receive_phone]"]').val($(self.config.selectorInfoRegister + ' [name="Bill[phone]"]').val());
-            $(self.config.selectorInfoReceive + ' [name="Bill[receive_email]"]').val($(self.config.selectorInfoRegister + ' [name="Bill[email]"]').val());
-            $(self.config.selectorInfoReceive + ' [name="Bill[receive_address]"]').val($(self.config.selectorInfoRegister + ' [name="Bill[address]"]').val());
-        });
-    }
 }
 
 var main = new Main();

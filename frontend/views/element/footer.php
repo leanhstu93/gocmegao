@@ -4,7 +4,7 @@ use frontend\models\Banner;
 use frontend\models\SinglePage;
 ?>
 <div class="footer hide-loading">
-    <div class="menucategory clearfix menufooter">
+    <div class="menucategory clearfix menufooter w100">
         <div class="wp1040">
             <ul>
                 <li class="bt_home active"><a href="/" title="Trang chủ"><img src="images/homepage.png" /></a></li>

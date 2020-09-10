@@ -240,20 +240,6 @@ Base.fn = Base.prototype = {
 		});
 	},
 
-	handleOpenFileManager: function() {
-    	var self =this;
-    	console.log(111);
-    	$(self.config.selectorOpenFileManeger).click(function(){
-    		var id = $(this).find('input').attr('id');
-			$.fancybox({
-				'href' : 'http://yii2dev.com:93/filemanager/dialog.php?type=1&field_id='+id+'&lang=vi&popup=0&crossdomain=0&relative_url=0',
-				'width'		: 900,
-				'height'	: 600,
-				'type'		: 'iframe',
-				'autoScale'    	: false
-			});
-		});
-	},
 
 	handleSelectImage : function () {
 		var self = this;
@@ -265,8 +251,12 @@ Base.fn = Base.prototype = {
 				chooseFiles: true,
 				onInit: function( finder ) {
 					finder.on( 'files:choose', function( evt ) {
-						var file = evt.data.files.first();
-						self_click.parent().find(self.config.selectorImageValue).val(file.getUrl());
+						let file = evt.data.files.first();
+						let url = file.getUrl();
+						if (url.charAt(0) == '/') {
+							url = url.substring(1);
+						}
+						self_click.parent().find(self.config.selectorImageValue).val(url);
 					} );
 
 					finder.on( 'file:choose:resizedImage', function( evt ) {
@@ -295,9 +285,12 @@ Base.fn = Base.prototype = {
 						var files = evt.data.files.models;
 						console.log(files);
 						$.each(files, function(key,value) {
-							console.log(key);
-							console.log(value.getUrl());
-							self.appendHtmlMultiImages(value.getUrl(),date_field);
+							let url = value.getUrl();
+
+							if (url.charAt(0) == '/') {
+								url = url.substring(1);
+							}
+							self.appendHtmlMultiImages(url,date_field);
 						});
 					} );
 				}

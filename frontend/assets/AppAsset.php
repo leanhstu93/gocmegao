@@ -14,9 +14,13 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/style.css',
         'css/menu/styles.css',
+        'libs/slick/slick.css',
+        'libs/fontawesome/css/all.css',
+        'libs/fontawesome/css/fontawesome.css'
     ];
     public $js = [
         'js/jquery.js',
+        'libs/slick/slick.js',
         'js/menu/script.js',
         'js/main.js',
     ];

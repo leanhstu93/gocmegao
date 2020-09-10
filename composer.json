@@ -23,7 +23,9 @@
         "kartik-v/yii2-widget-colorinput": "*",
         "2amigos/yii2-ckeditor-widget" : "~2.1",
         "kartik-v/yii2-editable": "@dev",
-         "devanych/yii2-cart": "*"
+         "devanych/yii2-cart": "*",
+        "keygenqt/yii2-autocomplete-ajax": "1.0.3",
+        "kartik-v/yii2-widget-select2": "^2.1@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

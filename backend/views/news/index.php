@@ -4,6 +4,8 @@ use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\web\View;
 use kartik\grid\GridView;
+use \frontend\models\NewsCategory;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Product */
@@ -42,11 +44,42 @@ $scrollingTop = 10;
                         }
                     ],
                     [
+                        'label' => 'Danh mục',
+                        'attribute' => 'category_id',
+                        'vAlign'=>'middle',
+                        'width'=>'200px',
+                        'value' => 'category.name',
+                        'filter'=> ArrayHelper::map(NewsCategory::find()->asArray()->all(), 'id', 'name'),
+                        'filterInputOptions' => [
+                            'class' => 'form-control',
+                            'prompt' => 'Chọn'
+                        ],
+                        'format'=>'raw',
+
+//                        'filter'=>ArrayHelper::map(NewsCategory::find()->asArray()->all(), 'id', 'name'),
+                    ],
+                    [
+                        'class'=>'kartik\grid\EnumColumn',
+                        'attribute'=>'option',
+                        'vAlign'=>'middle',
+                        'width'=>'100px',
+                        'filterInputOptions' => [
+                            'class' => 'form-control',
+                            'prompt' => 'Chọn'
+                        ],
+                        'enum' => \frontend\models\News::listOption()
+                    ],
+                    [
                         'class'=>'kartik\grid\EnumColumn',
                         'attribute'=>'active',
                         'vAlign'=>'middle',
+                        'filterInputOptions' => [
+                            'class' => 'form-control',
+                            'prompt' => 'Chọn'
+                        ],
                         'enum' => \frontend\models\Product::listActive()
                     ],
+
                     [
                         'class' => 'kartik\grid\ActionColumn',
                         'header' => 'Thao tác',

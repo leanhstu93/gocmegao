@@ -36,9 +36,10 @@ IndexIgnore */*
 
     RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
     RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
+    RewriteRule ^libs/(.*)$ frontend/web/libs/$1 [L]
 
 
-    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|js|fonts|images)/
+    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|js|fonts|images|libs)/
 
     RewriteCond %{REQUEST_URI} !index.php
 

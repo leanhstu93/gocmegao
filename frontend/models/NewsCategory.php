@@ -31,6 +31,7 @@ class NewsCategory extends \yii\db\ActiveRecord
     const OPTION_HOME = 1;
     const OPTION_NEW = 3;
     const OPTION_HOT = 5;
+    const OPTION_SPECIAL = 7;
     /**
      * {@inheritdoc}
      */
@@ -123,6 +124,7 @@ class NewsCategory extends \yii\db\ActiveRecord
             self::OPTION_HOT => 'Hot',
             self::OPTION_NEW => 'Mới',
             self::OPTION_HOME => 'Trang chủ',
+            self::OPTION_SPECIAL => 'Đặc biệt',
         ];
     }
 

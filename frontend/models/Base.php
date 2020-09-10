@@ -112,4 +112,24 @@ class Base extends \yii\db\ActiveRecord
 
         return $linkFolder. '/'.$nameImage;
     }
+
+    public function getDescriptionCut($count)
+    {
+        $data = strip_tags($this->desc);
+        $data = trim($data);
+        $data = str_replace("&nbsp;", " ", $data);
+
+        if (strlen($data) <= $count) {
+            return $data;
+        }
+
+        for ($i = $count; $i >= 0; $i--) {
+            if ($data[$i] == ' ') {
+                echo $data[$i];
+                return mb_substr($data, 0,$i). '...';
+            }
+        }
+
+        return '';
+    }
 }

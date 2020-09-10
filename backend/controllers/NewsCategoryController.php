@@ -103,6 +103,7 @@ class NewsCategoryController extends BaseController
     {
         $model = $this->findModel($id);
         # language
+        $dataLang = [];
         $listLanguage = Yii::$app->params['listLanguage'];
         foreach ($listLanguage as $key => $value) {
             if ($value['default']) continue;

@@ -39,6 +39,8 @@ class News extends Base
     const OPTION_NEW = 1;
     const OPTION_HOT = 3;
     const OPTION_LONG_FORM = 5;
+    const OPTION_ATTENTION = 7; # ĐÁNG CHÚ Ý
+
 
     /**
      * {@inheritdoc}
@@ -58,6 +60,7 @@ class News extends Base
             [['category_id', 'order', 'user_id', 'date_create', 'date_update', 'count_view', 'active', 'option'], 'integer'],
             [['desc', 'content'], 'string'],
             [['name', 'seo_name', 'image', 'image_standing' , 'alias', 'tags', 'meta_title', 'meta_desc', 'meta_keyword'], 'string', 'max' => 255],
+            [['category'], 'safe'],
         ];
     }
 
@@ -86,13 +89,14 @@ class News extends Base
             'meta_desc' => 'Meta Desc',
             'meta_keyword' => 'Meta Keyword',
             'active' => 'Active',
-            'option' => 'Option',
+            'option' => 'Trạng thái',
+            'category.name' => 'Danh mục'
         ];
     }
 
     public function search($params) {
         $query = self::find();
-
+        $query->joinWith(['category']);
         $dataProvider = new ActiveDataProvider([
             'query'=>$query,
             'sort'=> ['defaultOrder' => ['id'=>SORT_DESC]]
@@ -111,10 +115,14 @@ class News extends Base
 
         $query->andFilterWhere([
             'id'=>$this->id,
-            'status'=>$this->status,
+            'news.active'=>$this->active,
+            'news.option'=>$this->option,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'news.name', $this->name]);
+        if ($this->category) {
+            $query->andFilterWhere(['=', 'news_category.id', $this->category->id]);
+        }
 
 
         // filter by order amount
@@ -174,12 +182,33 @@ class News extends Base
         ];
     }
 
+    /**
+     * @return array|\yii\db\ActiveRecord|null
+     */
     public function getUser() {
-        return $this->hasMany(Member::className(), ['id' => 'user_id'])->select('username')->one();
+        return $this->hasOne(Member::className(), ['id' => 'user_id']);
     }
 
+    /**
+     * @return array|\yii\db\ActiveRecord|null
+     * La61y danh mu5c
+     */
     public function getCategory() {
-        return $this->hasMany(NewsCategory::className(), ['id' => 'category_id'])->select('name,id')->one();
+        return $this->hasOne(NewsCategory::className(), ['id' => 'category_id']);
+    }
+
+    public function getCreateTimeToString()
+    {
+        $timeSubtraction = time() - $this->date_update;
+
+        # thời gian update nhỏ hơn 59 phút thì qui ra phút
+        if ($timeSubtraction < 3540) {
+            return round($timeSubtraction/60). ' phút trước';
+        } else if ($timeSubtraction < 86400) { # thời gian nhỏ hơn 24h
+            return round($timeSubtraction/3600). ' giờ trước';
+        } else if ($timeSubtraction < 86400) { # thời gian nhỏ hơn 24h
+            return round($timeSubtraction/86400). ' ngày trước';
+        }
     }
 
     public static function listOption()
@@ -188,6 +217,7 @@ class News extends Base
             self::OPTION_HOT => 'Hot',
             self::OPTION_NEW => 'Mới',
             self::OPTION_LONG_FORM => 'LONGFORM',
+            self::OPTION_ATTENTION => 'Đáng chú ý',
         ];
     }
 }

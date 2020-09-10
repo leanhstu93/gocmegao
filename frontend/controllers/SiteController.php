@@ -432,7 +432,7 @@ class SiteController extends BaseController
         $newsCategory = NewsCategory::find()->where(['id' => $model->category_id])->all();
         # news lien quan
         $dataRL = News::find()->where(['category_id' => $model->category_id ])
-            ->andWhere('id != :id',['id'=>$id_object])->limit(3)->all();
+            ->andWhere('id != :id',['id'=>$id_object])->limit(6)->all();
         #end news lien quan
         $bread[] = [
             'name' => 'Trang chủ',

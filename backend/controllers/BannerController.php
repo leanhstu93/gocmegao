@@ -51,6 +51,7 @@ class BannerController extends BaseController
     public function actionCreate()
     {
         $model = new Banner();
+        $dataLang = [];
         # language
         $listLanguage = Yii::$app->params['listLanguage'];
         foreach ($listLanguage as $key => $value) {
