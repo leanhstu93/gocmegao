@@ -53,6 +53,7 @@ use frontend\models\Product;
                     </ul>
                 </div>
             </div>
+            <?php  echo $this->render("//element/comment"); ?>
             <div class="w100 border_bottom">
             </div>
             <div class="wrapper-news-relates w100">
@@ -81,5 +82,3 @@ use frontend\models\Product;
         <?php  echo $this->render("//element/sidebar"); ?>
     </div>
 </div>
-
-<?php // echo $this->render("//element/news-letter-home"); ?>

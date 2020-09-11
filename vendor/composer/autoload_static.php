@@ -22,6 +22,7 @@ class ComposerStaticInit323059f41f6ecca0b67b23daabcbe1b2
         'y' => 
         array (
             'yii\\swiftmailer\\' => 16,
+            'yii\\jui\\' => 8,
             'yii\\gii\\' => 8,
             'yii\\faker\\' => 10,
             'yii\\debug\\' => 10,
@@ -35,6 +36,7 @@ class ComposerStaticInit323059f41f6ecca0b67b23daabcbe1b2
         ),
         'k' => 
         array (
+            'keygenqt\\autocompleteAjax\\' => 26,
             'kartik\\select2\\' => 15,
             'kartik\\popover\\' => 15,
             'kartik\\plugins\\popover\\' => 23,
@@ -43,6 +45,7 @@ class ComposerStaticInit323059f41f6ecca0b67b23daabcbe1b2
             'kartik\\editable\\' => 16,
             'kartik\\dialog\\' => 14,
             'kartik\\color\\' => 13,
+            'kartik\\bs4dropdown\\' => 19,
             'kartik\\base\\' => 12,
         ),
         'd' => 
@@ -107,6 +110,10 @@ class ComposerStaticInit323059f41f6ecca0b67b23daabcbe1b2
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
         ),
+        'yii\\jui\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yiisoft/yii2-jui/src',
+        ),
         'yii\\gii\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-gii/src',
@@ -136,6 +143,10 @@ class ComposerStaticInit323059f41f6ecca0b67b23daabcbe1b2
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'keygenqt\\autocompleteAjax\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/keygenqt/yii2-autocomplete-ajax',
         ),
         'kartik\\select2\\' => 
         array (
@@ -168,6 +179,10 @@ class ComposerStaticInit323059f41f6ecca0b67b23daabcbe1b2
         'kartik\\color\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-colorinput/src',
+        ),
+        'kartik\\bs4dropdown\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-bootstrap4-dropdown/src',
         ),
         'kartik\\base\\' => 
         array (

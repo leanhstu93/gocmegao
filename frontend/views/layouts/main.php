@@ -53,10 +53,9 @@ $myUrl .= '://'.$_SERVER['HTTP_HOST'];
         <?= $content ?>
     <?php echo $this->render("//element/footer"); ?>
 </div>
-
-
 <?php echo  \Yii::$app->view->render('@app/views/modal/form-advisory'); ?>
 <?php $this->endBody() ?>
+
 </body>
 </html>
 <?php $this->endPage() ?>

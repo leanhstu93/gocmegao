@@ -19,7 +19,7 @@ class AppAsset extends AssetBundle
         'libs/fontawesome/css/fontawesome.css'
     ];
     public $js = [
-        'js/jquery.js',
+//        'js/jquery.js',
         'libs/slick/slick.js',
         'js/menu/script.js',
         'js/main.js',

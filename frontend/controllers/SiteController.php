@@ -27,6 +27,7 @@ use frontend\models\Router;
 use frontend\models\ConfigPage;
 use frontend\models\RlProductCategory;
 use yii\data\Pagination;
+use yii\helpers\Json;
 
 /**
  * Site controller
@@ -36,97 +37,6 @@ class SiteController extends BaseController
     public function actionIndex()
     {
         return $this->render('index');
-    }
-    public function build_data_files($boundary, $fields, $files, $nameField = 'upload'){
-        $data = '';
-        $eol = "\r\n";
-
-        $delimiter = '-------------' . $boundary;
-
-        foreach ($fields as $name => $content) {
-            $data .= "--" . $delimiter . $eol
-                . 'Content-Disposition: form-data; name="' . $nameField . "\"".$eol.$eol
-                . $content . $eol;
-        }
-
-
-        foreach ($files as $name => $content) {
-            $data .= "--" . $delimiter . $eol
-                . 'Content-Disposition: form-data; name="' . $nameField . '"; filename="' . $name . '"' . $eol
-                //. 'Content-Type: image/png'.$eol
-                . 'Content-Transfer-Encoding: binary'.$eol
-            ;
-
-            $data .= $eol;
-            $data .= $content . $eol;
-        }
-        $data .= "--" . $delimiter . "--".$eol;
-
-
-        return $data;
-    }
-    public function actionUpload()
-    {
-
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        set_time_limit(0);
-        #?command=FileUpload&lang=vi&type=Images&currentFolder=%2F&hash=0912400dbfdb801b&responseType=json
-        $fields = [
-        ];
-
-        $filename = 'http://xuanhongnhatrangrestaurant.com/uploads/images/ha4.jpg';
-        $url = 'http://hdesign.com.vn/ckfinder/core/connector/php/connector.php?command=FileUpload&lang=vi&type=Images&currentFolder=%2F&hash='.time().'&responseType=json';
-//        $url = 'http://hdesign.com.vn/ckfinder/core/connector/php/connector.php?command=GetFolders&lang=vi&type=Images&currentFolder=/&hash=0912400dbfdb801b';
-        $curl = curl_init();
-
-        $boundary = uniqid();
-        $delimiter = '-------------' . $boundary;
-        $files= [
-            'ha21.jpg' => file_get_contents($filename)
-        ];
-        $post_data = $this->build_data_files($boundary, $fields, $files);
-
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_POST => false,
-            CURLOPT_POSTFIELDS => $post_data,
-            CURLOPT_HTTPHEADER => array(
-                //"Authorization: Bearer $TOKEN",
-                "Content-Type: multipart/form-data; boundary=" . $delimiter,
-                "Content-Length: " . strlen($post_data),
-                "API-Key: abcdefghi" //Optional if required
-            ),
-
-
-        ));
-
-
-        $response = curl_exec($curl);
-
-        $info = curl_getinfo($curl);
-        echo "</br>=============code================</br>";
-        echo "code: ${info['http_code']}";
-
-//print_r($info['request_header']);
-        echo "</br>=============reponsive================</br>";
-        print_r($response);
-        echo "</br>=============request_header================</br>";
-//        print_r($info['request_header']);
-
-        $err = curl_error($curl);
-        echo "</br>==========error===================</br>";
-        echo "error";
-        var_dump($err);
-        curl_close($curl);
-        exit();
     }
 
     public function actionRewriteUrl($alias)
@@ -176,7 +86,7 @@ class SiteController extends BaseController
                     $res = $this->getGalleryImageDetail($model->id_object);
                     break;
                 case Router::TYPE_NEWS_PAGE:
-                    $res = $this->actionGetNewsCategory(0);
+                    $res = $this->actionGetNewsCategory($model->id_object);
                     break;
                 case 'video' :
                     $this->actionVideo();
@@ -344,10 +254,12 @@ class SiteController extends BaseController
         $sort = $this->getSort();
 
         if ($id > 0) {
+
             $arrIds = [$id];
             $newsCategory = NewsCategory::find()->where(['parent_id' => $id])->all();
              NewsCategory::getIdsChild($newsCategory,$arrIds);
-            $data = Product::find()->where(['in', 'id', $arrIds]);
+            $data = News::find()->where(['in', 'category_id', $arrIds]);
+
             $countQuery = clone $data;
             $categories = NewsCategory::find()->where(['id' => $id])->one();
             // set breadcrumb
@@ -408,6 +320,7 @@ class SiteController extends BaseController
         # phan trang
         $pages = new Pagination(['totalCount' => $countQuery->count()]);
         $pages->defaultPageSize = 18;
+
         $models = $data->offset($pages->offset)
             ->limit($pages->limit)
             ->orderBy('id DESC')
@@ -934,5 +847,25 @@ class SiteController extends BaseController
                 'dataRL' => $dataRL
             ]
         ];
+    }
+
+    public function actionSearchJson()
+    {
+        if (Yii::$app->request->isAjax && isset($_GET['term'])) {
+
+            sleep(2); // for test
+            $keyword = $_GET['term'];
+            $results = [];
+
+            $q = addslashes($keyword);
+            foreach (News::find()->where("(`name` like '%{$q}%')")->all() as $model) {
+                $results[] = [
+                    'id' => $model['id'],
+                    'url' => $model->getUrl(),
+                    'label' => $model['name'],
+                ];
+            }
+            echo Json::encode($results);
+        }
     }
 }

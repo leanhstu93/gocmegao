@@ -5,10 +5,12 @@ var Main = function () {
 Main.fn = Main.prototype = {
     config: {
         selectorSliderNewsHome : '.js__slider-news-home',
+        selectorMenu: '.wrapper-menu',
     },
 
     init: function () {
         this.initSlider();
+        this.fixScrollMenu()
     },
 
 
@@ -23,6 +25,19 @@ Main.fn = Main.prototype = {
            speed: 500,
        });
     },
+
+    fixScrollMenu: function() {
+        let self = this;
+
+        $(window).scroll(function(){
+            if($(this).scrollTop()>250){
+                $(self.config.selectorMenu).addClass("fix-scroll");
+            }
+            else{
+                $(self.config.selectorMenu).removeClass("fix-scroll");
+            }
+        });
+    }
 
 }
 
