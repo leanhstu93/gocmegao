@@ -3,7 +3,7 @@
 use frontend\models\Banner;
 use frontend\models\SinglePage;
 ?>
-<div class="footer hide-loading">
+<div class="footer hide-loading" id="stop-sticky">
     <div class="menucategory clearfix menufooter w100">
         <div class="wp1040">
             <ul>
@@ -61,6 +61,11 @@ use frontend\models\SinglePage;
                title="Chính sách bảo mật">Chính sách bảo mật</a>
             <p>Ghi rõ nguồn "Fbnc" khi phát hành lại thông tin từ kênh thông tin này.</p>
         </div>
+    </div>
+
+<!--    scrool top -->
+    <div class="wrapper-scroll-top js_scroll-top">
+        <img src="/images/icons/scrollTotop.png" />
     </div>
 </div>
 

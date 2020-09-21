@@ -29,6 +29,7 @@ class ConfigPage  extends Base
     const TYPE_NEWS = 7;
     const TYPE_GALLERY_IMAGE = 9;
     const TYPE_CONTACT = 11;
+    const TYPE_VIDEO = 13;
     const STATUS_INACTIVE = 3;
     const STATUS_ACTIVE = 1;
     /**

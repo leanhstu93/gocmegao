@@ -40,6 +40,7 @@ class News extends Base
     const OPTION_HOT = 3;
     const OPTION_LONG_FORM = 5;
     const OPTION_ATTENTION = 7; # ĐÁNG CHÚ Ý
+    const OPTION_SPECIAL = 9; # ĐÁNG CHÚ Ý
 
 
     /**
@@ -208,6 +209,8 @@ class News extends Base
             return round($timeSubtraction/3600). ' giờ trước';
         } else if ($timeSubtraction < 86400) { # thời gian nhỏ hơn 24h
             return round($timeSubtraction/86400). ' ngày trước';
+        } else {
+            return date('d/m/Y H:i:s', $this->date_update);
         }
     }
 
@@ -218,6 +221,23 @@ class News extends Base
             self::OPTION_NEW => 'Mới',
             self::OPTION_LONG_FORM => 'LONGFORM',
             self::OPTION_ATTENTION => 'Đáng chú ý',
+            self::OPTION_SPECIAL => 'Đặc biệt'
         ];
+    }
+
+    /**
+     * tăng lượt xem
+     */
+    public static function increaseView($id)
+    {
+        $model = self::findOne($id);
+        $session = Yii::$app->session;
+
+        if ($model && !$session->has('news_'.$id)) {
+            $model->count_view = $model->count_view + 1;
+            if ($model->save()) {
+                $session->set('news_'.$id,1);
+            }
+        }
     }
 }

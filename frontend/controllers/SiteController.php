@@ -341,6 +341,7 @@ class SiteController extends BaseController
 
     public function actionGetNewsDetail($id_object)
     {
+        News::increaseView($id_object);
         $model = News::find()->where(['id'=>$id_object])->one();
         $newsCategory = NewsCategory::find()->where(['id' => $model->category_id])->all();
         # news lien quan

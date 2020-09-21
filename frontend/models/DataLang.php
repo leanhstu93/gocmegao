@@ -31,6 +31,8 @@ class DataLang extends Base
     const TYPE_SINGLE_PAGE= 15;
     const TYPE_NEWS_CATEGORY= 17;
     const TYPE_BANNER= 19;
+    const TYPE_PAGE_VIDEO= 21;
+    const TYPE_VIDEO= 23;
 
     /**
      * {@inheritdoc}

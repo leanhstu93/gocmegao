@@ -80,18 +80,18 @@ return [
                 ],
             ]
         ],
-        'mn_manager_gallery_image' => [
-            'name' => 'Quản lý thư viện hình ảnh',
+        'mn_manager_video' => [
+            'name' => 'Quản lý video',
             'link' => 'javascript:void(0)',
             'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
             'submenu' => [
                 'submenu_1' => [
-                    'name' => 'Thiết lập thư viện hình ảnh',
-                    'link' => 'gallery-image/config'
+                    'name' => 'Thiết lập video',
+                    'link' => 'video/config'
                 ],
                 'submenu_2' => [
                     'name' => 'Danh sách',
-                    'link' => 'gallery-image/index'
+                    'link' => 'video/index'
                 ],
             ]
         ],
@@ -121,14 +121,25 @@ return [
                 ],
             ]
         ],
-        'mn_manager_language' => [
-            'name' => 'Quản lý ngôn ngữ',
+//        'mn_manager_language' => [
+//            'name' => 'Quản lý ngôn ngữ',
+//            'link' => 'javascript:void(0)',
+//            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+//            'submenu' => [
+//                'submenu_1' => [
+//                    'name' => 'Tùy chĩnh ngôn ngữ',
+//                    'link' => 'custom/custom-language'
+//                ],
+//            ]
+//        ],
+        'mn_manager_logs' => [
+            'name' => 'Quản lý logs',
             'link' => 'javascript:void(0)',
             'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
             'submenu' => [
                 'submenu_1' => [
-                    'name' => 'Tùy chĩnh ngôn ngữ',
-                    'link' => 'custom/custom-language'
+                    'name' => 'Danh sách',
+                    'link' => 'logs/index'
                 ],
             ]
         ]
@@ -150,6 +161,27 @@ return [
                 'note' => '',
                 'limit' => 1
             ],
+            'banner_adv_sidebar_1' => [
+                'name' => 'Banner sidebar 1',
+                'data' => 3,
+                'type' => 'one',
+                'note' => '',
+                'limit' => 1
+            ],
+            'banner_adv_sidebar_2' => [
+                'name' => 'Banner sidebar 2',
+                'data' => 4,
+                'type' => 'one',
+                'note' => '',
+                'limit' => 1
+            ],
+            'banner_adv_sidebar_3' => [
+                'name' => 'Banner sidebar 3',
+                'data' => 5,
+                'type' => 'one',
+                'note' => '',
+                'limit' => 1
+            ]
 
         ],
         'CUSTOM_SINGLE_PAGE' => [
@@ -254,7 +286,8 @@ return [
     # setting language
     'settingLanguage' => [
         'home' => 'Trang chủ',
-        'same_category' => 'Cùng chuyên mục'
+        'same_category' => 'Cùng chuyên mục',
+        'read_a_lot' => 'Đọc nhiều'
 
     ],
     'listLanguage' => [

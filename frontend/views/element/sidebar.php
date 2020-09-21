@@ -1,4 +1,5 @@
-<?php use frontend\models\News;
+<?php use frontend\models\Banner;
+use frontend\models\News;
 use yii\widgets\ActiveForm;
 
 ?>
@@ -23,4 +24,65 @@ use yii\widgets\ActiveForm;
             <?php ActiveForm::end(); ?>
         </div>
     </div>
+
+    <div class="w100 block-sidebar list-news-special">
+        <div class="title-block-sidebar">
+            Tin đặc biệt
+        </div>
+        <ul>
+            <?php
+            $data = News::find()->where(['option' => News::OPTION_SPECIAL, 'active' => 1])->orderBy(News::ORDER_BY)->limit(4)->all();
+            foreach ($data as $item) { ?>
+                <li>
+                    <div class="wrapper-image w100">
+                        <a href="<?php echo $item->getUrl() ?>">
+                            <img src="<?php echo $item->image ?>" class="w100" />
+
+                        </a>
+                    </div>
+                    <div class="title w100">
+                        <a href="<?php echo $item->getUrl() ?>">
+                            <?php echo $item->name ?>
+                        </a>
+                    </div>
+                </li>
+            <?php }
+            ?>
+        </ul>
+    </div>
+
+    <div class="w100 block-sidebar wrapper-advertisement">
+        <?php
+        $banner = Banner::getDataByCustomSetting('banner_adv_sidebar_1');
+        if (!empty($banner->images)) {
+        ?>
+            <img src="<?php echo $banner->images->image ?>" class="w100">
+        <?php } ?>
+    </div>
+    <div class="w100 block-sidebar wrapper-advertisement">
+        <?php
+        $banner = Banner::getDataByCustomSetting('banner_adv_sidebar_2');
+        if (!empty($banner->images)) {
+            ?>
+            <img src="<?php echo $banner->images->image ?>" class="w100">
+        <?php } ?>
+    </div>
+
+    <div class="w100 block-sidebar block-exchange-rate">
+        <iframe class="100" src="https://adi.admicro.vn/adt/cpc/tvcads/files/html/tu_050820/tygia_box1.html?&url=undefined"></iframe>
+    </div>
+
+    <div class="w100 block-sidebar block-exchange-rate-price">
+        <iframe class="w100" src="https://adi.admicro.vn/adt/banners/nam2015/2033/boxtaitro/tygia_box2.html"></iframe>
+    </div>
+    <div id="rightstickyanchor"></div>
+    <div class="w100 block-sidebar wrapper-advertisement" id="rightsticky">
+        <?php
+        $banner = Banner::getDataByCustomSetting('banner_adv_sidebar_3');
+        if (!empty($banner->images)) {
+            ?>
+            <img src="<?php echo $banner->images->image ?>" class="w100">
+        <?php } ?>
+    </div>
+
 </div>

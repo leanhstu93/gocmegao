@@ -20,6 +20,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
 //        'js/jquery.js',
+        'js/slimScroll/jquery.slimscroll.min.js',
         'libs/slick/slick.js',
         'js/menu/script.js',
         'js/main.js',

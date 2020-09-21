@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\components\MyHelpers;
 use frontend\models\DataLang;
 use Yii;
 use frontend\models\News;
@@ -21,6 +22,7 @@ class NewsController extends BaseController
      */
     public function actionIndex()
     {
+        debug(MyHelpers::getClientIp());
         $searchModel =  new News();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -122,6 +124,8 @@ class NewsController extends BaseController
                     $this->saveDataLang($_POST['DataLang'],$model->id ,DataLang::TYPE_NEWS);
                 }
                 #end save data lang
+
+                $this->saveLog('news:update:edit');
                 Yii::$app->session->setFlash('success', "Lưu thành công");
                 return $this->redirect(['index']);
             } else {
