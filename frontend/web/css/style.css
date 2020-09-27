@@ -10898,7 +10898,7 @@ li.big.popupVideo:hover a:before {
 	margin-bottom: 15px;
 }
 .page-home .BoxKinhDoanhTuTe2{
-	width: 70%;
+	width: 100%;
 	margin-bottom: 20px;
 }
 .page-home .BoxKinhDoanhTuTe2.bg-green-slide-2{
@@ -11844,6 +11844,35 @@ padding-top: 20px;
 #cssmenu #menu-button::before,#cssmenu #menu-button::after{
 	display: none !important;
 }
+.wrapper-video  {
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	width: 100%;
+	overflow: hidden;
+}
+.wrapper-video  iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+}
+.content-page.page-video .title-detail {
+	margin-top: 20px;
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 0;
+}
+.content-page.page-video .text-description{
+	font-weight: normal;
+	margin-bottom: 20px;
+}
+.content-page.page-video .breadcrumb {
+	padding-left: 0;
+	border-bottom: 0;
+}
 @media screen and (max-width: 650px){
 	.content-page .page-left,.content-page .page-right{
 		width: 100%;
@@ -11892,3 +11921,4 @@ padding-top: 20px;
 		width: 100%;
 	}
 }
+

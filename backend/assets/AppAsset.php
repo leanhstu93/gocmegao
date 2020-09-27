@@ -34,6 +34,7 @@ class AppAsset extends AssetBundle
         'libs/font-awesome/font-awesome.min.css?v4.0.2',
         'libs/jquery.fancybox-2.1.7/jquery.fancybox.css',
         'libs/bootstrap-tokenfield/bootstrap-tokenfield.min.css',
+        'libs/chartist/chartist.min.css',
         # End libs
         # custom
         'css/site.min.css',
@@ -83,6 +84,8 @@ class AppAsset extends AssetBundle
         'libs/global/jquery-appear.min.js',
         'libs/global/nprogress.min.js',
         'libs/global/animation.min.js',
+        #'libs/chartist/chartist.min.js',
+        'libs/chartjs/chartjs.js',
         'libs/bootstrap-tokenfield/bootstrap-tokenfield.min.js',
 //        'libs/nestable/nestable.min.js',
         'js/panel.min.js',

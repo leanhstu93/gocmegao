@@ -30,7 +30,9 @@ Base.fn = Base.prototype = {
 		selectorButtonDeleteImages: '.js-btn-delete-images',
 		selectorHtmlItemImage: '.js-item-image',
 		selectorCheckAllDeleteImages: '.js-check-select-all-delete',
-		selectorEditor: '.js-editor'
+		selectorEditor: '.js-editor',
+		selectorChartList: '.js-ct-chart',
+		idChartJs: 'js__ ChartjsLine'
     },
     init: function () {
         this.autoSlugEvent();
@@ -48,6 +50,62 @@ Base.fn = Base.prototype = {
 		this.handleCheckAllImagesDelete();
 		this.initCkeditor();
     },
+
+	initChartList: function(configCustom) {
+		let configDefault = {
+			labels: [1, 2, 3, 4, 5, 6, 7, 8],
+			series: [
+				[5, 9, 7, 8, 5, 3, 5, 14]
+			]
+		};
+
+		new Chartist.Line(this.config.selectorChartList, $.extend(true,{},configDefault,configCustom) , {
+			low: 0,
+			showArea: true,
+			scaleMinSpace: 20,
+			fullWidth: true,
+			chartPadding: {
+				right: 40
+			}
+		});
+	},
+
+	initChartJs: function(lineChartData) {
+		// var lineChartData = {
+		// 	labels: ["January", "February", "March", "April", "May", "June", "July"],
+		// 	datasets: [{
+		// 		label: "First",
+		// 		fill: true,
+		// 		backgroundColor: "rgba(204, 213, 219, .1)",
+		// 		borderColor: Config.colors("blue-grey", 300),
+		// 		pointRadius: 4,
+		// 		borderDashOffset: 2,
+		// 		pointBorderColor: "#fff",
+		// 		pointBackgroundColor: Config.colors("blue-grey", 300),
+		// 		pointHoverBackgroundColor: "#fff",
+		// 		pointHoverBorderColor: Config.colors("blue-grey", 300),
+		// 		data: [65, 59, 80, 81, 56, 55, 40]
+		// 	}]
+		// };
+
+
+		var myLine = new Chart(document.getElementById(this.config.idChartJs).getContext("2d"), {
+			type: 'line',
+			data: lineChartData,
+			options: {
+				responsive: true,
+				scales: {
+					xAxes: [{
+						display: true
+					}],
+					yAxes: [{
+						display: true
+					}]
+				}
+			}
+		});
+
+	},
 
 	initCkeditor: function() {
     	let self = this;

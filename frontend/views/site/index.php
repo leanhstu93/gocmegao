@@ -39,7 +39,7 @@ use frontend\models\NewsCategory;
                                         </h2>
 
                                         <div class="right-desc text">
-                                            <?php echo $longForm->getDescriptionCut(120) ?>
+                                            <?php echo $longForm->getDescriptionCut(620) ?>
                                         </div>
                                     </div>
                                 </div>
@@ -471,7 +471,7 @@ use frontend\models\NewsCategory;
                         <div class="clearfix"></div>
                     <?php  } ?>
                     <div class="box2cate" id="CategoryHomeHl6">
-                        <div class="boxfinal" data-marked-zoneid="cf_home_b5">
+                      
                             <?php
                             $longForm = News::find()->where(['option' => News::OPTION_LONG_FORM, 'active' => 1])->orderBy(News::ORDER_BY)->one();
                             ?>
@@ -498,7 +498,7 @@ use frontend\models\NewsCategory;
                                     <img src="<?php echo $banner->images->image ?>" class="w100">
                                 </div>
                             <?php } ?>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

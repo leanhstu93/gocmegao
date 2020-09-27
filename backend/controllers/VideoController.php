@@ -4,7 +4,6 @@ namespace backend\controllers;
 
 use frontend\models\ConfigPage;
 use frontend\models\DataLang;
-use frontend\models\News;
 use frontend\models\Router;
 use Yii;
 use frontend\models\Video;
@@ -16,7 +15,7 @@ use yii\filters\VerbFilter;
 /**
  * VideoController implements the CRUD actions for Video model.
  */
-class VideoController extends Controller
+class VideoController extends BaseController
 {
     /**
      * {@inheritdoc}
@@ -39,12 +38,12 @@ class VideoController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Video::find(),
-        ]);
+        $searchModel =  new Video();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel
         ]);
     }
 
@@ -70,12 +69,39 @@ class VideoController extends Controller
     {
         $model = new Video();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        # language
+        $listLanguage = Yii::$app->params['listLanguage'];
+        $dataLang = [];
+        foreach ($listLanguage as $key => $value) {
+            if ($value['default']) continue;
+            $dataLang[$key] = new DataLang();
+        }
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->identity->id;
+            $model->date_update = time();
+            $model->date_create = time();
+            $model->count_view = 1;
+            $model->order = 0;
+            $model->seo_name = Router::processSeoName($model->seo_name,$model->id);
+            if ($model->save()) {
+                #xu ly node
+                Router::processRouter(['seo_name' => $model->seo_name, 'id_object' => $model->id, 'type' =>Router::TYPE_VIDEO]);
+
+                #save Data Lang
+                if (!empty($_POST['DataLang'])) {
+                    $this->saveDataLang($_POST['DataLang'],$model->id,DataLang::TYPE_VIDEO);
+                }
+                #end save data lang
+                Yii::$app->session->setFlash('success', "Lưu thành công");
+                return $this->redirect(['index']);
+            } else {
+                Yii::$app->session->setFlash('danger', "Lưu thất bại");
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'dataLang' => $dataLang
         ]);
     }
 
@@ -88,14 +114,41 @@ class VideoController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        # language
+        $dataLang = [];
+        $listLanguage = Yii::$app->params['listLanguage'];
+        foreach ($listLanguage as $key => $value) {
+            if ($value['default']) continue;
+            $dataLang[$key] = DataLang::find()->where(['type' => DataLang::TYPE_VIDEO,'id_object' => $id, 'code_lang' => $key])->one();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (empty($dataLang[$key])) {
+                $dataLang[$key] = new DataLang();
+            }
+        }
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->seo_name = Router::processSeoName($model->seo_name,$model->id);
+            $model->date_update = time();
+            if ($model->save()) {
+                #xu ly node
+                Router::processRouter(['seo_name' => $model->seo_name, 'id_object' => $model->id, 'type' =>Router::TYPE_VIDEO],'update');
+                #save Data Lang
+                if (!empty($_POST['DataLang'])) {
+                    $this->saveDataLang($_POST['DataLang'],$model->id ,DataLang::TYPE_VIDEO);
+                }
+                #end save data lang
+
+                $this->saveLog('news:update:edit');
+                Yii::$app->session->setFlash('success', "Lưu thành công");
+                return $this->redirect(['index']);
+            } else {
+                Yii::$app->session->setFlash('danger', "Lưu thất bại");
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'dataLang' => $dataLang
         ]);
     }
 
@@ -131,7 +184,7 @@ class VideoController extends Controller
 
     public function actionConfig()
     {
-        if ($model =  ConfigPage::find()->where(['type' => ConfigPage::TYPE_NEWS])->one() === null) {
+        if ($model =  ConfigPage::find()->where(['type' => ConfigPage::TYPE_VIDEO])->one() === null) {
             $model = new ConfigPage();
             $model->type = ConfigPage::TYPE_VIDEO;
         } else {
@@ -141,7 +194,7 @@ class VideoController extends Controller
         $dataLang = [];
         $listLanguage = Yii::$app->params['listLanguage'];
         foreach ($listLanguage as $key => $value) {
-            if ($value['default']) continue;
+//            if ($value['default']) continue;
             $dataLang[$key] = DataLang::find()->where(['type' => DataLang::TYPE_PAGE_VIDEO, 'code_lang' => $key])->one();
 
             if (empty($dataLang[$key])) {
@@ -150,20 +203,20 @@ class VideoController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post(),'ConfigPage')) {
-            $model->seo_name = News::processSeoName($model->seo_name,$model->id);
+            $model->seo_name = Video::processSeoName($model->seo_name,$model->id);
             if ($model->save()) {
                 #xu ly node
-                $router = Router::find()->where(['type' => Router::TYPE_NEWS_PAGE])->one();
+                $router = Router::find()->where(['type' => Router::TYPE_VIDEO_PAGE])->one();
 
                 if ($router) {
-                    Router::processRouter(['seo_name' => $model->seo_name, 'id_object' => $model->id, 'type' => Router::TYPE_NEWS_PAGE],'update');
+                    Router::processRouter(['seo_name' => $model->seo_name, 'id_object' => $model->id, 'type' => Router::TYPE_VIDEO_PAGE],'update');
                 } else {
-                    Router::processRouter(['seo_name' => $model->seo_name, 'id_object' => $model->id, 'type' => Router::TYPE_NEWS_PAGE],'create');
+                    Router::processRouter(['seo_name' => $model->seo_name, 'id_object' => $model->id, 'type' => Router::TYPE_VIDEO_PAGE],'create');
                 }
 
                 #save Data Lang
                 if (!empty($_POST['DataLang'])) {
-                    $this->saveDataLang($_POST['DataLang'],$model->id,DataLang::TYPE_PAGE_NEWS );
+                    $this->saveDataLang($_POST['DataLang'],$model->id,DataLang::TYPE_PAGE_VIDEO );
                 }
                 #end save data lang
 

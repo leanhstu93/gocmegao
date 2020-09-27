@@ -28,6 +28,7 @@ class Router extends Base
     const TYPE_BANNER = 21;
     const TYPE_GALLERY_IMAGE = 25;
     const TYPE_GALLERY_IMAGE_PAGE = 23;
+    const TYPE_VIDEO_PAGE=27;
     /**
      * {@inheritdoc}
      */

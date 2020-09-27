@@ -11,6 +11,7 @@ use frontend\models\ProductCategory;
 use frontend\models\ProductImage;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\SinglePage;
+use frontend\models\Video;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use \yii\base\View;
@@ -87,6 +88,9 @@ class SiteController extends BaseController
                     break;
                 case Router::TYPE_NEWS_PAGE:
                     $res = $this->actionGetNewsCategory($model->id_object);
+                    break;
+                case Router::TYPE_VIDEO:
+                    $res = $this->actionVideoDetail($model->id_object);
                     break;
                 case 'video' :
                     $this->actionVideo();
@@ -380,7 +384,47 @@ class SiteController extends BaseController
             ]
         ];
     }
+    public function actionVideoDetail($id_object)
+    {
+        $model = Video::find()->where(['id'=>$id_object])->one();
 
+        # sp lien quan
+        $dataRL = Video::find()
+            ->andWhere('id != :id',['id'=>$id_object])->limit(6)->all();
+        #end sp lien quan
+
+        $bread = [
+            [
+                'name' => 'Trang chủ',
+                'link' => Yii::$app->homeUrl
+            ],
+            [
+                'name' => $model->name,
+                'link' => $model->getUrl()
+            ],
+        ];
+
+        # set meta
+        $model->setTranslate();
+        $this->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => $model->meta_keyword
+        ]);
+        $this->view->registerMetaTag([
+            'name' => 'description',
+            'content' => $model->meta_desc
+        ]);
+        $this->view->title = $model->name;
+
+        return [
+            'file' => 'video-detail',
+            'data' => [
+                'data' => $model,
+                'dataRL' => $dataRL,
+                'bread' => $bread,
+            ]
+        ];
+    }
     public function getProductDetail($id_object)
     {
         $myRlProductCategory = new RlProductCategory();

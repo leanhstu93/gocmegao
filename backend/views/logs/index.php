@@ -32,9 +32,6 @@ $scrollingTop = 10;
                 $gridColumns = [
                      ['class' => 'kartik\grid\CheckboxColumn'],
                     [
-                        'attribute' => 'name',
-                    ],
-                    [
                         'attribute' => 'action',
                     ],
                     [
@@ -44,7 +41,7 @@ $scrollingTop = 10;
                         'value' => 'member.username',
                     ],
                     [
-                        'attribute' => 'IP',
+                        'attribute' => 'ip',
                     ],
 
                     [
@@ -54,7 +51,7 @@ $scrollingTop = 10;
                         'updateOptions' => ['title' => 'Cập nhật', 'data-toggle' => 'tooltip'],
                         'deleteOptions' => ['title' => 'Xóa', 'data-toggle' => 'tooltip','data-style' => 'top:100px' ],
                         'headerOptions' => ['class' => 'kartik-sheet-style'],
-                        'template' => '{update} {delete}',
+                        'template' => '',
                         'buttons' => [
                             'delete' => function ($url, $model, $key) {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>',$url,

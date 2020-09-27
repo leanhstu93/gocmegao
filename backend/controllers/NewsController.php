@@ -22,7 +22,6 @@ class NewsController extends BaseController
      */
     public function actionIndex()
     {
-        debug(MyHelpers::getClientIp());
         $searchModel =  new News();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

@@ -33,6 +33,11 @@ AppAsset::register($this);
 <script>
     Config.set('assets', '../assets');
 </script>
+
+<?php if (isset($this->blocks['block1'])): ?>
+    <?= $this->blocks['block1'] ?>
+<?php endif; ?>
+
 </body>
 </html>
 <?php $this->endPage() ?>

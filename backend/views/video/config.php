@@ -1,16 +1,14 @@
 <?php
 
-use frontend\models\SinglePage;
 use yii\helpers\Html;
-use yii\web\View;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Video */
+/* @var $model app\models\Product */
 
-$this->title = 'Thêm mới';
+$this->title = 'Cấu hình trang video';
 $this->params['breadcrumbs'][] = ['label' => 'Video', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$menu =  [
+$menu =   [
     [
         'name' => 'Tổng quan',
         'link' => 'js__overview',
@@ -22,6 +20,11 @@ $menu =  [
         'icon' =>'icon wb-image'
     ],
     [
+        'name' => 'Tags',
+        'link' => 'js__tags',
+        'icon' =>'icon wb-heart'
+    ],
+    [
         'name' => 'Trạng thái',
         'link' => 'js__status',
         'icon' =>'icon wb-heart'
@@ -31,24 +34,19 @@ $menu =  [
         'link' => 'js__seo',
         'icon' =>'icon fa-google-plus'
     ],
-    [
-        'name' => 'Lưu',
-        'link' => 'js__save',
-        'icon' =>'fa fa-hand-grab-o'
-    ],
+
 ];
 ?>
-
 
 <!-- Page -->
 <div class="page">
     <div class="panel-body container-fluid">
-        <?php echo $this->render("//element/page-aside",['data' =>$menu]); ?>
-        <div class="page-main ">
+        <?php echo $this->render("//element/page-aside",['data' => $menu]);?>
+        <div class="page-main">
             <?php echo $this->render("//element/message"); ?>
-            <div class="page-content css_page-main">
+            <div class="page-content">
                 <?php echo $this->render("//element/breadcrumb"); ?>
-                <?= $this->render('_form', [
+                <?= $this->render('_form-config', [
                     'model' => $model,
                     'menu' => array_reverse($menu),
                     'dataLang' => $dataLang
@@ -58,4 +56,3 @@ $menu =  [
     </div>
 </div>
 <!-- End Page -->
-

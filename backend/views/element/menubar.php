@@ -8,7 +8,10 @@ $menubarAdmin = \Yii::$app->params['menubarAdmin'];
                 <ul class="site-menu" data-plugin="menu">
                    <?php foreach($menubarAdmin as $key => $item) { ?>
                         <li class="site-menu-item has-sub">
-                            <a href="<?php echo $item['link'] ?>">
+                            <a href="<?php
+                            echo empty($item['link']) ? 'javascript:void(0)' :
+                                 Yii::$app->getUrlManager()->getBaseUrl(). '/' . $item['link'];
+                            ?>">
                                 <?php echo $item['icon'] ?>
                                 <span class="site-menu-title"><?php echo $item['name'] ?></span>
                                 <?php if(!empty($item['submenu'])){ ?>

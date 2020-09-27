@@ -1,5 +1,6 @@
 <?php use frontend\models\Banner;
 use frontend\models\News;
+use  frontend\models\Video;
 use yii\widgets\ActiveForm;
 
 ?>
@@ -27,12 +28,12 @@ use yii\widgets\ActiveForm;
 
     <div class="w100 block-sidebar list-news-special">
         <div class="title-block-sidebar">
-            Tin đặc biệt
+            <?php echo Yii::$app->view->params['lang']->mutex ?>
         </div>
         <ul>
             <?php
-            $data = News::find()->where(['option' => News::OPTION_SPECIAL, 'active' => 1])->orderBy(News::ORDER_BY)->limit(4)->all();
-            foreach ($data as $item) { ?>
+            $videos = Video::find()->where([ 'active' => 1, 'option' =>Video::OPTION_HOT])->limit(4 )->orderBy(News::ORDER_BY)->all();
+            foreach ($videos as $item) { ?>
                 <li>
                     <div class="wrapper-image w100">
                         <a href="<?php echo $item->getUrl() ?>">

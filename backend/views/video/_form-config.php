@@ -2,36 +2,26 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use frontend\models\Product;
-use frontend\models\News;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Product */
+/* @var $model frontend\models\ConfigPage */
 /* @var $form yii\widgets\ActiveForm */
 
 ?>
-
-<div class="product-form">
+<div class="config-page-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
     <div class="panel">
-        <?= $this->render('//element/panel-heading', array_pop($menu)) ?>
+        <?= $this->render('//element/panel-heading',array_pop($menu)) ?>
         <div class="panel-body container-fluid">
-            <?= $form->errorSummary($model); ?>
             <div class="css-tab-language js-tab-language js-tab-language-vi" data-code="vi">
-                <?= $form->field($model, 'category_id')->dropDownList($listCate,[
-                    'class' => 'form-control',
-                ])->label('Danh mục') ?>
-                <?= $form->field($model, 'name')->textInput(['class' => 'js__title form-control','required'])->label('Tiêu đề',['class' => 'required']) ?>
-
+                <?= $form->field($model, 'name')->textInput(['class' => 'js__title form-control'])->label('Tiêu đề') ?>
                 <div class="form-group">
-                    <label class="required control-label">
+                    <label>
                         Đường dẫn
                     </label>
                     <div class="input-group input-group-icon">
-                        <?= Html::textInput('News[seo_name]',$model->seo_name,array('class'=>'js__alias form-control')) ?>
-
+                        <?= Html::textInput('ConfigPage[seo_name]',$model->seo_name,array('class'=>'js__alias form-control')) ?>
                         <span class="input-group-addon">
                           <span class="checkbox-custom checkbox-default">
                             <input type="checkbox" id="inputCheckbox" class="js__toggle-auto-get-alias" name="inputCheckbox" checked="">
@@ -40,16 +30,15 @@ use frontend\models\News;
                           </span>
                         </span>
                     </div>
-                    <span class="help-block" id="helpBlock"><?= Html::error($model,'seo_name'); ?></span>
                 </div>
 
                 <?= $form->field($model, 'desc')->textarea(['rows' => 3]) ?>
 
                 <?= $form->field($model, 'content')->textarea(['class' => 'js-editor' ,
-                    'rows' => 3]);
-                ?>
-                <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
+                    'rows' => 3]); ?>
             </div>
+            <!-- tab vn -->
+            <!-- tab en -->
             <?php
             $dataFieldLang = [
                 [
@@ -71,50 +60,40 @@ use frontend\models\News;
                     'class' => ''
                 ],
             ] ;
-
             ?>
             <?= $this->render('_form-lang',['model' => $dataLang,'dataFieldLang' => $dataFieldLang,'form' => $form])  ?>
-
+            <!-- end tab en -->
         </div>
-        <?= $this->render('//element/panel-heading',array_pop($menu)) ?>
-        <div class="panel-body container-fluid">
-
-            <?= $form->field($model, 'image',['template' => '<label>Hình ảnh</label><div class="input-group input-group-file js__select-image">{input}<span class="input-group-btn">
+            <?= $this->render('//element/panel-heading',array_pop($menu)) ?>
+            <div class="panel-body container-fluid">
+                <?= $form->field($model, 'image',['template' => '<div class="input-group input-group-file js-open-file-manager">{input}<span class="input-group-btn">
                       <span class="btn btn-success btn-file">
                         <i class="icon wb-upload" aria-hidden="true"></i>
                        
                       </span>
                     </span></div>'], [
-                'buttonLabel' => 'Chọn hình',
-                'model' => $model,
-            ])->textInput(['class' => 'js__image-value form-control']) ?>
-
-            <?= $form->field($model, 'image_standing',['template' => '<label class="control-label" for="news-image_standing">Hình đứng</label><div class="input-group input-group-file js__select-image">{input}<span class="input-group-btn">
-                      <span class="btn btn-success btn-file">
-                        <i class="icon wb-upload" aria-hidden="true"></i>
-                       
-                      </span>
-                    </span></div>'], [
-                'buttonLabel' => 'Chọn hình',
-                'model' => $model,
-            ])->textInput(['class' => 'js__image-value form-control']) ?>
+                    'buttonLabel' => 'Chọn hình',
+                    'model' => $model,
+                ]) ?>
         </div>
         <?= $this->render('//element/panel-heading',array_pop($menu)) ?>
         <div class="panel-body container-fluid">
-
-            <?= $form->field($model, 'option')->dropDownList(News::listOption()) ?>
-
-            <?= $form->field($model, 'active')->dropDownList(Product::listActive()) ?>
-
+            <?= $form->field($model, 'tags')->textInput([' data-plugin' => 'tokenfield','autocomplete' => 'off']) ?>
         </div>
-        <?= $this->render('//element/panel-heading', array_pop($menu)) ?>
+
+        <?= $this->render('//element/panel-heading',array_pop($menu)) ?>
+        <div class="panel-body container-fluid">
+            <?= $form->field($model, 'status')->dropDownList(\frontend\models\ConfigPage::listStatus()) ?>
+        </div>
+
+        <?= $this->render('//element/panel-heading',array_pop($menu)) ?>
         <div class="panel-body container-fluid">
             <div class="css-tab-language js-tab-language js-tab-language-vi">
-                <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'meta_title')->textarea(['rows' => 6]) ?>
 
-                <?= $form->field($model, 'meta_desc')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'meta_desc')->textarea(['rows' => 6]) ?>
 
-                <?= $form->field($model, 'meta_keyword')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'meta_keyword')->textarea(['rows' => 6]) ?>
             </div>
             <?php
             $dataFieldLang = [
@@ -139,15 +118,13 @@ use frontend\models\News;
             ] ;
             ?>
             <?= $this->render('_form-lang',['model' => $dataLang,'dataFieldLang' => $dataFieldLang,'form' => $form])  ?>
-        </div>
-        <?= $this->render('//element/panel-heading', array_pop($menu)) ?>
-        <div class="panel-body container-fluid">
 
             <div class="form-group">
-                <?= Html::submitButton('Lưu', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton('Lưu', [ 'name' => 'aa' , 'class' => 'btn btn-primary']) ?>
             </div>
         </div>
-        <?php ActiveForm::end(); ?>
     </div>
+
+    <?php ActiveForm::end(); ?>
 
 </div>
