@@ -2,12 +2,15 @@
 
 namespace backend\controllers;
 
+use frontend\models\Banner;
 use Yii;
 use frontend\models\Form;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
+
 
 /**
  * FormController implements the CRUD actions for Form model.
@@ -36,13 +39,20 @@ class FormController extends BaseController
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Form::find(),
+        $searchModel =  new Form();
+        return $this->render('index', [
+            'searchModel' =>$searchModel
         ]);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+//        $searchModel =  new Form();
+//        $dataProvider = new ActiveDataProvider([
+//            'query' => Form::find(),
+//        ]);
+//
+//        return $this->render('index', [
+//            'dataProvider' => $dataProvider,
+//            'searchModel' =>$searchModel
+//        ]);
     }
 
     /**
@@ -71,8 +81,20 @@ class FormController extends BaseController
 
         if ($model->load(Yii::$app->request->post())) {
             $model->date = time();
+            $model->status = 1;
             if ($model->save()) {
+                $baseUrl = str_replace('admin','',Url::base(true));
+                $session = Yii::$app->session;
+                $session->set('form_id',$model->id);
                 Yii::$app->session->setFlash('success', "Lưu thành công!");
+
+                return $this->redirect('/quizz');
+                exit;
+            } else {
+                foreach ($model->errors as $item) {
+                    Yii::$app->session->setFlash('error', $item);
+                }
+
             }
         } else {
             Yii::$app->session->setFlash('success', "Lưu thất bại!");
@@ -93,7 +115,7 @@ class FormController extends BaseController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

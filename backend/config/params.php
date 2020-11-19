@@ -11,23 +11,15 @@ return [
             'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
         ],
 
-        'mn_manager_news' => [
-            'name' => 'Quản lý tin tức',
+        'mn_manager_single-page' => [
+            'name' => 'Quản lý trang đơn',
             'link' => '',
             'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
             'submenu' => [
                 'submenu_1' => [
-                    'name' => 'Thiết lập tin tức',
-                    'link' => 'news/config'
+                    'name' => 'Danh sách trang đơn',
+                    'link' => 'single-page/index'
                 ],
-                'submenu_2' => [
-                    'name' => 'Danh sách tin tức',
-                    'link' => 'news/index'
-                ],
-                'submenu_3' => [
-                    'name' => 'Danh sách danh mục',
-                    'link' => 'news-category/index'
-                ]
             ]
         ],
 
@@ -43,6 +35,45 @@ return [
                 'submenu_2' => [
                     'name' => 'Danh sách danh mục',
                     'link' => 'banner-category/index'
+                ],
+            ]
+        ],
+        'mn_manager_quizz' => [
+            'name' => 'Quản lý câu hỏi',
+            'link' => '',
+            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+            'submenu' => [
+                'submenu_1' => [
+                    'name' => 'Danh sách',
+                    'link' => 'quizz/index'
+                ],
+            ]
+        ],
+
+        'mn_manager_banner' => [
+            'name' => 'Quản lý banner',
+            'link' => '',
+            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+            'submenu' => [
+                'submenu_1' => [
+                    'name' => 'Danh sách',
+                    'link' => 'banner/index'
+                ],
+                'submenu_2' => [
+                    'name' => 'Danh mục',
+                    'link' => 'banner-category/index'
+                ],
+            ]
+        ],
+
+        'mn_manager_form' => [
+            'name' => 'Quản lý khách hàng form tư vấn',
+            'link' => '',
+            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+            'submenu' => [
+                'submenu_1' => [
+                    'name' => 'Danh sách',
+                    'link' => 'form/index'
                 ],
             ]
         ],
@@ -99,88 +130,107 @@ return [
 //                ],
 //            ]
 //        ],
-        'mn_manager_logs' => [
-            'name' => 'Quản lý logs',
+        'mn_manager_result' => [
+            'name' => 'Quản lý kết quả',
             'link' => '',
             'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
             'submenu' => [
                 'submenu_1' => [
                     'name' => 'Danh sách',
-                    'link' => 'logs/index'
+                    'link' => 'result/index'
                 ],
             ]
-        ]
+        ],
+        'mn_manager_language' => [
+            'name' => 'Quản lý ngôn ngữ',
+            'link' => '',
+            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+            'submenu' => [
+                'submenu_1' => [
+                    'name' => 'Tùy chĩnh ngôn ngữ',
+                    'link' => 'custom/custom-language'
+                ],
+            ]
+        ],
+//        'mn_manager_logs' => [
+//            'name' => 'Quản lý logs',
+//            'link' => '',
+//            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+//            'submenu' => [
+//                'submenu_1' => [
+//                    'name' => 'Danh sách',
+//                    'link' => 'logs/index'
+//                ],
+//            ]
+//        ]
     ],
     # tuy chinh giao dien
     'settingTemplate' => [
         'CUSTOM_IMAGE' => [
-            'banner_header' =>[
-                'name' => 'Banner header',
+            'banner_slide_home' =>[
+                'name' => 'Banner slide trang chủ',
+                'data' => 3,
+                'type' => '',
+                'note' => '',
+                'limit' => 5
+            ],
+            'banner_symptoms' =>[
+                'name' => 'Banner triệu chứng',
                 'data' => 1,
                 'type' => 'one',
                 'note' => '',
                 'limit' => 1
             ],
-            'one_banner_home_bottom' =>[
-                'name' => 'Banner cuối trang chủ',
+            'banner_diagnose' =>[
+                'name' => 'Banner chẩn đoán',
                 'data' => 2,
                 'type' => 'one',
                 'note' => '',
                 'limit' => 1
             ],
-            'banner_adv_sidebar_1' => [
-                'name' => 'Banner sidebar 1',
+            'banner_cpap' =>[
+                'name' => 'Banner chẩn đoán',
                 'data' => 3,
                 'type' => 'one',
                 'note' => '',
                 'limit' => 1
             ],
-            'banner_adv_sidebar_2' => [
-                'name' => 'Banner sidebar 2',
+            'banner_dinh_nghia' =>[
+                'name' => 'Banner trang định nghĩa',
                 'data' => 4,
                 'type' => 'one',
                 'note' => '',
                 'limit' => 1
             ],
-            'banner_adv_sidebar_3' => [
-                'name' => 'Banner sidebar 3',
+            'banner_hau_qua' =>[
+                'name' => 'Banner trang hậu quả',
+                'data' => 4,
+                'type' => 'one',
+                'note' => '',
+                'limit' => 1
+            ],
+            'banner_cau_hoi' =>[
+                'name' => 'Banner trang câu hỏi',
                 'data' => 5,
                 'type' => 'one',
                 'note' => '',
                 'limit' => 1
-            ]
+            ],
+
 
         ],
         'CUSTOM_SINGLE_PAGE' => [
-            'one_footer' =>[
-                'name' => 'Trang đơn footer',
+            'list_answer' =>[
+                'name' => 'Danh sách câu hỏi',
                 'data' => 1,
                 'note' => '',
-                'limit' => 1
+                'limit' => 0
             ],
-            'tree_middle_home' =>[
-                'name' => '3 trang đơn giữa trang chủ',
-                'data' => 2,
-                'note' => '',
-                'limit' => 3
-            ],
-            'footer_list_col_link_1' =>[
-                'name' => 'Danh sách trang đơn footer cột liên kết 1',
-                'data' => 3,
-                'note' => '',
-                'limit' => 5
-            ],
-            'footer_list_col_link_2' =>[
-                'name' => 'Danh sách trang đơn footer cột liên kết 2',
-                'data' => 4,
-                'note' => '',
-                'limit' => 5
-            ],
-            'one_page_about' =>[
-                'name' => 'Trang giới thiệu',
+            'list_answer_block_2' =>[
+                'name' => 'Danh sách câu hỏi Block 2',
                 'data' => 1,
                 'note' => '',
-                'limit' => 1
+                'limit' => 0
             ],
         ],
         'CUSTOM_NEWS_CATEGORY' => [
