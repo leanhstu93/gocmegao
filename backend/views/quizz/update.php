@@ -8,7 +8,7 @@ use yii\web\View;
 /* @var $model app\models\SinglePage */
 
 $this->title = 'Cập nhật';
-$this->params['breadcrumbs'][] = ['label' => 'Trang đơn', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Quizz', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $menu = [
     [
@@ -25,11 +25,6 @@ $menu = [
         'name' => 'Trạng thái',
         'link' => 'js__status',
         'icon' =>'icon wb-heart'
-    ],
-    [
-        'name' => 'SEO',
-        'link' => 'js__seo',
-        'icon' =>'icon fa-google-plus'
     ],
     [
         'name' => 'Xử lý',

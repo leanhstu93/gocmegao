@@ -51,10 +51,10 @@ $myUrl .= '://'.$_SERVER['HTTP_HOST'];
         <?= Alert::widget() ?>
     <?php echo $this->render("//element/message"); ?>
         <?= $content ?>
-    <?php echo $this->render("//element/footer"); ?>
-    <?php echo $this->render("//element/modal-evaluate"); ?>
+    <?php # echo $this->render("//element/footer"); ?>
+    <?php # echo $this->render("//element/modal-evaluate"); ?>
 </div>
-<?php echo  \Yii::$app->view->render('@app/views/modal/form-advisory'); ?>
+<?php # echo  \Yii::$app->view->render('@app/views/modal/form-advisory'); ?>
 <?php $this->endBody() ?>
 
 </body>

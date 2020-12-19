@@ -29,6 +29,7 @@ class ProductCategory extends Base
 {
     const OPTION_NEW = 1;
     const OPTION_HOT = 3;
+    const ORDER_BY = ' display_order DESC';
 
     /**
      * {@inheritdoc}

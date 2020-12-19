@@ -8,7 +8,7 @@ use yii\web\View;
 /* @var $model app\models\Product */
 
 $this->title = 'Thêm mới';
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Tin tức', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $menu =  [
     [

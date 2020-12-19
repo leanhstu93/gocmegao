@@ -8,13 +8,18 @@ use yii\web\View;
 /* @var $model app\models\SinglePage */
 
 $this->title = 'Thêm mới';
-$this->params['breadcrumbs'][] = ['label' => 'Trang đơn', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Quizz', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $menu =  [
     [
         'name' => 'Tổng quan',
         'link' => 'js__overview',
         'icon' =>'icon wb-dashboard'
+    ],
+    [
+        'name' => 'Hình ảnh',
+        'link' => 'js__image',
+        'icon' =>'icon wb-image'
     ],
     [
         'name' => 'Trạng thái',

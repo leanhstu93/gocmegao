@@ -48,6 +48,7 @@ class ProductController extends BaseController
         $formData = Yii::$app->request->post();
         # language
         $listLanguage = Yii::$app->params['listLanguage'];
+        $dataLang = [];
         foreach ($listLanguage as $key => $value) {
             if ($value['default']) continue;
             $dataLang[$key] = new DataLang();
@@ -116,6 +117,10 @@ class ProductController extends BaseController
          * @var Product $model
          */
         $model = $this->findModel($id);
+        # chuyen option thanh array
+        if (!empty($model->option)) {
+            $model->option = explode(',',$model->option);
+        }
         # lay danh sach hinh anh
         $modelProductImage = ProductImage::find()->select('image')->where(['product_id' => $id])->asArray()->all();
         $model->images = array_merge([$model->image],array_column($modelProductImage,'image'));
@@ -124,8 +129,12 @@ class ProductController extends BaseController
         $model->getCategoryIds();
 
         $formData = Yii::$app->request->post();
+        $dataLang = [];
         if (!empty($formData)) {
             $model->load($formData);
+            if(!empty($model->option)) {
+                $model->option = implode(',',$model->option);
+            }
             $model->date_update = time();
             $dataImage = array_filter($formData['Product']['images']);
 

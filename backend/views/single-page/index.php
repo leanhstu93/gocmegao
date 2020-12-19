@@ -11,7 +11,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\Product */
 
 $this->title = 'Danh sách trang đơn';
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Trang đơn', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $viewMsg = 'Xem';
 $updateMsg = 'Cập nhật';

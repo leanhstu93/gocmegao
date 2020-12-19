@@ -42,6 +42,14 @@ $scrollingTop = 10;
                         }
                     ],
                     [
+                        'attribute' => 'option',
+                        'format'=>'raw',
+                        'filter' => true,
+                        'value' => function ($data) {
+                            return $data::renderColOption($data->option);
+                        }
+                    ],
+                    [
                         'class'=>'kartik\grid\EnumColumn',
                         'attribute'=>'active',
                         'vAlign'=>'middle',

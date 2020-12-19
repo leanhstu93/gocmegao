@@ -44,7 +44,7 @@ class RlProductCategory extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getProductIds($idCategory)
+    public static function getProductIds($idCategory)
     {
         $idProducts = self::find()->where(['category_id' => $idCategory])->asArray()->all();
 

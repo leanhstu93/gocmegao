@@ -41,6 +41,9 @@ $scrollingTop = 10;
                         }
                     ],
                     [
+                        'attribute' => 'display_order',
+                    ],
+                    [
                         'class'=>'kartik\grid\EnumColumn',
                         'attribute'=>'active',
                         'vAlign'=>'middle',

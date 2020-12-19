@@ -41,6 +41,8 @@ use frontend\models\ProductCategory;
                 <?= $form->field($model, 'desc')->textarea(['rows' => 3]) ?>
 
                 <?= $form->field($model, 'tags')->textInput(['maxlength' => true]) ?>
+
+                <?= $form->field($model, 'display_order')->textInput(['number' => true]) ?>
             </div>
             <?php
             $dataFieldLang = [

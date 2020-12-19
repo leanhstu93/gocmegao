@@ -104,6 +104,7 @@ class ProductCategoryController extends BaseController
     {
         # language
         $listLanguage = Yii::$app->params['listLanguage'];
+        $dataLang = [];
         foreach ($listLanguage as $key => $value) {
             if ($value['default']) continue;
             $dataLang[$key] = DataLang::find()->where(['type' => DataLang::TYPE_PRODUCT_CATEGORY,'id_object' => $id, 'code_lang' => $key])->one();

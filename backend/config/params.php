@@ -38,17 +38,6 @@ return [
                 ],
             ]
         ],
-        'mn_manager_quizz' => [
-            'name' => 'Quản lý câu hỏi',
-            'link' => '',
-            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
-            'submenu' => [
-                'submenu_1' => [
-                    'name' => 'Danh sách',
-                    'link' => 'quizz/index'
-                ],
-            ]
-        ],
 
         'mn_manager_banner' => [
             'name' => 'Quản lý banner',
@@ -62,6 +51,44 @@ return [
                 'submenu_2' => [
                     'name' => 'Danh mục',
                     'link' => 'banner-category/index'
+                ],
+            ]
+        ],
+        'mn_manager_product' => [
+            'name' => 'Quản lý sản phẩm',
+            'link' => '',
+            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+            'submenu' => [
+                'submenu_1' => [
+                    'name' => 'Thiết lập sản phẩm',
+                    'link' => 'product/config'
+                ],
+                'submenu_2' => [
+                    'name' => 'Danh sách sản phẩm',
+                    'link' => 'product/index'
+                ],
+                'submenu_3' => [
+                    'name' => 'Danh sách danh mục',
+                    'link' => 'product-category/index'
+                ],
+            ]
+        ],
+        'mn_manager_news' => [
+            'name' => 'Quản lý tin tức',
+            'link' => '',
+            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+            'submenu' => [
+                'submenu_1' => [
+                    'name' => 'Thiết lập tin tức',
+                    'link' => 'news/config'
+                ],
+                'submenu_2' => [
+                    'name' => 'Danh sách tin tức',
+                    'link' => 'news/index'
+                ],
+                'submenu_3' => [
+                    'name' => 'Danh sách danh mục',
+                    'link' => 'news-category/index'
                 ],
             ]
         ],
@@ -119,28 +146,18 @@ return [
                 ],
             ]
         ],
-//        'mn_manager_language' => [
-//            'name' => 'Quản lý ngôn ngữ',
-//            'link' => 'Index',
-//            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
-//            'submenu' => [
-//                'submenu_1' => [
-//                    'name' => 'Tùy chĩnh ngôn ngữ',
-//                    'link' => 'custom/custom-language'
-//                ],
-//            ]
-//        ],
-        'mn_manager_result' => [
-            'name' => 'Quản lý kết quả',
-            'link' => '',
+        'mn_manager_language' => [
+            'name' => 'Quản lý ngôn ngữ',
+            'link' => 'Index',
             'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
             'submenu' => [
                 'submenu_1' => [
-                    'name' => 'Danh sách',
-                    'link' => 'result/index'
+                    'name' => 'Tùy chĩnh ngôn ngữ',
+                    'link' => 'custom/custom-language'
                 ],
             ]
         ],
+
         'mn_manager_language' => [
             'name' => 'Quản lý ngôn ngữ',
             'link' => '',
@@ -152,67 +169,46 @@ return [
                 ],
             ]
         ],
-//        'mn_manager_logs' => [
-//            'name' => 'Quản lý logs',
-//            'link' => '',
-//            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
-//            'submenu' => [
-//                'submenu_1' => [
-//                    'name' => 'Danh sách',
-//                    'link' => 'logs/index'
-//                ],
-//            ]
-//        ]
+        'mn_manager_logs' => [
+            'name' => 'Quản lý logs',
+            'link' => '',
+            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+            'submenu' => [
+                'submenu_1' => [
+                    'name' => 'Danh sách',
+                    'link' => 'logs/index'
+                ],
+            ]
+        ]
     ],
     # tuy chinh giao dien
     'settingTemplate' => [
         'CUSTOM_IMAGE' => [
             'banner_slide_home' =>[
                 'name' => 'Banner slide trang chủ',
-                'data' => 3,
+                'data' => 1,
                 'type' => '',
                 'note' => '',
                 'limit' => 5
             ],
-            'banner_symptoms' =>[
-                'name' => 'Banner triệu chứng',
-                'data' => 1,
-                'type' => 'one',
-                'note' => '',
-                'limit' => 1
-            ],
-            'banner_diagnose' =>[
-                'name' => 'Banner chẩn đoán',
+            'banner_left_top_home' =>[
+                'name' => 'Banner left top home',
                 'data' => 2,
-                'type' => 'one',
+                'type' => '',
                 'note' => '',
-                'limit' => 1
+                'limit' => 2
             ],
-            'banner_cpap' =>[
-                'name' => 'Banner chẩn đoán',
+            'banner_left_bottom_home' =>[
+                'name' => 'Banner left bottom home',
                 'data' => 3,
-                'type' => 'one',
+                'type' => '',
                 'note' => '',
                 'limit' => 1
             ],
-            'banner_dinh_nghia' =>[
-                'name' => 'Banner trang định nghĩa',
-                'data' => 4,
-                'type' => 'one',
-                'note' => '',
-                'limit' => 1
-            ],
-            'banner_hau_qua' =>[
-                'name' => 'Banner trang hậu quả',
-                'data' => 4,
-                'type' => 'one',
-                'note' => '',
-                'limit' => 1
-            ],
-            'banner_cau_hoi' =>[
-                'name' => 'Banner trang câu hỏi',
-                'data' => 5,
-                'type' => 'one',
+            'banner_right_home' =>[
+                'name' => 'Banner right home',
+                'data' => 3,
+                'type' => '',
                 'note' => '',
                 'limit' => 1
             ],

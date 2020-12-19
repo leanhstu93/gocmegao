@@ -8,7 +8,7 @@ use yii\web\View;
 /* @var $model app\models\News */
 
 $this->title = 'Cập nhật';
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Tin tức', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $menu = [
     [

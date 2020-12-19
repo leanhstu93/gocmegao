@@ -1,0 +1,157 @@
+ul.menu li.column-1 .submenu {
+    width: 230px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* css login  */
+.zalo{
+  font-size: 11px;
+  font-weight: bold;
+}
+.related-album {
+  margin: 15px 0px;
+}
+ul.login-fb {
+    padding: 0px;
+    text-align: center;
+    margin: 20px auto;
+}
+ul.login-fb li {
+  margin-right: auto;
+    position: relative;
+    /* display: inline; */
+    margin: 5px;
+    /* padding: 13px 50px 13px 50px; */
+    transition: 0.5s;
+    margin-bottom: 31px;
+    float: left;
+    list-style: none;
+    width: 30%;
+    padding-left: 35px;
+}
+
+.link-login-fb, .link-login-gg ,.link-login-zalo{
+    line-height: 46px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    width: 160px;
+    border-radius: 50px;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+ul.login-fb li:hover{
+      box-shadow: 0px 0px 10px 0px;
+}
+.link-login-gg {
+    background: #dc4e41;
+}
+.link-login-zalo{
+  background: #0591e9;
+}
+.icon-lg-gg {
+    background: #fff;
+    width: 45px;
+    border-radius: 50%;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    position: absolute;
+    left: -2px;
+    border: solid 1px #CCC;
+    color: #dc4e41;
+    font-size: 17px;
+}
+.icon-lg-fb {
+    background: #fff;
+    width: 45px;
+    border-radius: 50%;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    position: absolute;
+    left: -2px;
+    border: solid 1px #CCC;
+    color: #3b5998;
+    font-size: 17px;
+}
+ul.login-fb li a {
+    color: #FFF;
+}
+.link-login-fb {
+    background: #3b5998;
+}
+.zalo_login{
+  background: #fff;
+    width: 45px;
+    border-radius: 50%;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    position: absolute;
+    left: -2px;
+    border: solid 1px #CCC;
+    color: #0591e9;
+    font-size: 17px;
+    font-weight: bold;
+
+}
+.article-list{
+    margin: 0px -15px;
+}
+
+.short_ar{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 70px;
+}
+.name h3 a{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 6px;
+    line-height: 1.6;
+    font-size: 16px;
+    height: 25px;
+}
+.article-list li{
+    float: left;
+    width: 50%;
+    padding: 15px; 
+}
+
+.price_filter li{
+    display: block;
+    width: 100%;
+}
+.price_filter li .checkbox-box {
+    padding-left: 35px;
+}
+
+ul.price li{
+    display: inline-block;
+    margin-right: 10px;
+}
+/* end css login*/
+
+@media screen and (max-width: 600px){
+
+
+    .article-list li{
+        float: none;
+        width: 100%;
+
+    }
+    ul.login-fb li {
+      width: 100%;
+      margin: 5px;
+      padding: 0px;
+      float: left;
+      padding: 1;
+  }
+
+}

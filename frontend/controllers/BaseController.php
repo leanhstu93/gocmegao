@@ -189,6 +189,7 @@ class BaseController extends Controller
         $session = Yii::$app->session;
         $code_lang = $session->get('language');
 
+
         if (empty($code_lang)) {
         $listLanguage = Yii::$app->params['listLanguage'];
             foreach ($listLanguage as $key => $lang) {
@@ -199,12 +200,14 @@ class BaseController extends Controller
                 }
             }
         }
+
         $this->layout = 'main';
         $company = Company::find()->where(['id' => 1])->one();
         $custom = new Custom();
 
         Yii::$app->view->params['company'] =  $company;
         $dataLang = $custom->getSettingCustomLanguage();
+
         Yii::$app->view->params['lang'] = (object) $dataLang[$code_lang];
         Yii::$app->view->params['menu'] =  $this->buildMenu();
         $this->view->title = $company->name;

@@ -218,7 +218,7 @@ class SiteController extends BaseController
         $this->layout = 'main';
         $myRlProductCategory = new RlProductCategory();
         if ($id_object > 0) {
-            $arrIds = $myRlProductCategory->getProductIds($id_object);
+            $arrIds = $myRlProductCategory::getProductIds($id_object);
             $data = Product::find()->where(['in', 'id', $arrIds]);
 
             $countQuery = clone $data;

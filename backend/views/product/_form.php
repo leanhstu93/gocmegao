@@ -1,5 +1,7 @@
 <?php
 use frontend\models\Product;
+use frontend\models\SinglePage;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -133,8 +135,10 @@ use yii\widgets\ActiveForm;
         <?= $this->render('//element/panel-heading',array_pop($menu)) ?>
         <div class="panel-body container-fluid">
             <div class="css-tab-language js-tab-language js-tab-language-vi">
-                <?= $form->field($model, 'option')->dropDownList(Product::listOption()) ?>
-
+                <?= $form->field($model, 'option', ['enableClientValidation' => false])->dropDownList(Product::listOption(),  [
+                    'multiple'=>'multiple',
+                    'class'=>'selectpicker form-control',
+                ]) ?>
                 <?= $form->field($model, 'active')->dropDownList(Product::listActive()) ?>
             </div>
         </div>

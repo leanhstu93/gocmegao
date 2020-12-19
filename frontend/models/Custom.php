@@ -104,6 +104,7 @@ class Custom extends Base
     public static function getSettingCustomLanguage()
     {
         $custom =  \Yii::$app->params['settingLanguage'];
+
         $listLanguage =  \Yii::$app->params['listLanguage'];
         $customLanguage = [];
         $model = self::findOne(1);

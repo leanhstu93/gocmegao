@@ -11,7 +11,7 @@ use kartik\grid\GridView;
 /* @var $searchModel app\models\Product */
 
 $this->title = 'Danh sách Câu hỏi';
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'quizz', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $viewMsg = 'Xem';
 $updateMsg = 'Cập nhật';
@@ -31,6 +31,15 @@ $scrollingTop = 10;
                      ['class' => 'kartik\grid\CheckboxColumn'],
                     [
                         'attribute' => 'name',
+                    ],
+                    [
+                        'attribute' => 'image',
+                        'format'=>'raw',
+                        'filter' => false,
+                        'value' => function ($data) {
+                            return Html::img( '/'.$data['image'],
+                                ['width' => '60px']);
+                        }
                     ],
                     [
                         'attribute' => 'order',

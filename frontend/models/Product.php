@@ -45,6 +45,7 @@ class Product extends Base
     const STATUS_ACTIVE = 1;
     const OPTION_NEW = 1;
     const OPTION_HOT = 3;
+    const OPTION_SALE = 7;
     const OPTION_HOME = 5;
 
     /**
@@ -63,13 +64,26 @@ class Product extends Base
         return [
             [[ 'name', 'date_update', 'seo_name'], 'required'],
             [['name'], 'unique','message'=>'Sản phẩm này đã thêm'],
-            [['desc','sku', 'content'], 'string'],
-            [['count_view', 'user_id', 'date_update', 'target_blank', 'option', 'quantity'], 'integer'],
+            [['desc','sku', 'content', 'option'], 'string'],
+            [['count_view', 'user_id', 'date_update', 'target_blank', 'quantity'], 'integer'],
             [['weight', 'price', 'price_sale'], 'number'],
             [['sku'], 'string', 'max' => 50],
             [['brand_name'], 'string', 'max' => 100],
             [['tags', 'seo_name', 'image', 'meta_title', 'meta_desc', 'meta_keyword'], 'string', 'max' => 255],
         ];
+    }
+
+    public static function renderColOption($options)
+    {
+        $result = '';
+
+        $options = explode(',',$options);
+        foreach ($options as $option) {
+            if (!$option) continue;
+            $result.= self::listOption()[$option]. ',';
+        }
+
+        return trim($result, ',');
     }
 
     /**
@@ -155,6 +169,7 @@ class Product extends Base
             self::OPTION_HOT => 'Hot',
             self::OPTION_NEW => 'Mới',
             self::OPTION_HOME => 'Trang chủ',
+            self::OPTION_SALE => 'Sale',
         ];
     }
 
@@ -192,6 +207,20 @@ class Product extends Base
     public function getPriceFormat()
     {
         $res = Yii::$app->view->params['lang']->contact;
+
+        if($this->price > 0) {
+            $res = number_format($this->price) .'đ';
+        }
+        return $res;
+    }
+
+    public function getPriceFinalFormat()
+    {
+        $res = Yii::$app->view->params['lang']->contact;
+
+        if ($this->price_sale > 0) {
+            return number_format($this->price_sale).'đ';
+        }
 
         if($this->price > 0) {
             $res = number_format($this->price) .'đ';

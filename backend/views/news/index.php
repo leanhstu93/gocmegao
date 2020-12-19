@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 /* @var $searchModel app\models\Product */
 
 $this->title = 'Danh sách tin tức';
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Tin tức', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $viewMsg = 'Xem';
 $updateMsg = 'Cập nhật';

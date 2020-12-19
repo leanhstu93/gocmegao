@@ -9,7 +9,7 @@ use yii\web\View;
 /* @var $model app\models\Product */
 
 $this->title = 'Cập nhật';
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Tùy chỉnh giao diện', 'url' => ['update']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
