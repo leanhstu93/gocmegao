@@ -233,6 +233,12 @@ class SiteController extends BaseController
             # lấy danh mục con
             $categoryChild = ProductCategory::find()->where(['active'=>1,'parent_id' => $id_object])->all();
         } else {
+            // set breadcrumb
+            $bread[] = [
+                'name' => 'Trang chủ',
+                'link' => Yii::$app->homeUrl
+            ];
+
             # get all
             #query
             $dataQuery = [];
@@ -241,15 +247,15 @@ class SiteController extends BaseController
                 $dataQuery = [
                     'like', 'name', $dataGet['keyword']
                 ];
+                $bread[] = [
+                    'name' => 'Tìm kiếm: '.$dataGet['keyword'],
+                    'link' => 'javascript:;'
+                ];
             }
             $data = Product::find()->where($dataQuery)->andWhere(['active' => 1]);
             $countQuery = clone $data;
-            $categories = [];
-            // set breadcrumb
-            $bread[] = [
-                'name' => 'Trang chủ',
-                'link' => Yii::$app->homeUrl
-            ];
+            $categories = new ProductCategory();
+
             //end set breadcrumb
             # lấy danh mục con
             $categoryChild = ProductCategory::find()->where(['active'=>1])->all();
@@ -589,32 +595,114 @@ class SiteController extends BaseController
             ]
         ];
     }
+    public function actionDeleteCart()
+    {
+        $dataGet = Yii::$app->request->get();
+        $cart = Yii::$app->cart;
 
-    public function actionAddCart()
+        if (!empty($dataGet['product_id'])) {
+            $cart->remove($dataGet['product_id']);
+        } else {
+            $cart->clear();
+        }
+
+        $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
+    }
+    public function actionUpdateAllCart()
     {
         $cart = Yii::$app->cart;
         $dataGet = Yii::$app->request->get();
 
+        Yii::$app->session->setFlash('success', "Cập nhật giỏ hàng thành công");
+        foreach ($dataGet['products'] as $item) {
+            $product = Product::findOne($item['product_id']);
+            $cart->change($product->id, $item['quantity']);
+        }
+        $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
+    }
+
+    private function actionValidateAddCart(&$data, &$message)
+    {
+        if (empty($data['quantity'])) {
+            $data['quantity'] = 1;
+        }
+    }
+
+    public function actionTest()
+    {
+        print_r(json_encode([
+            'code' => 2000
+        ]));
+        exit();
+        //** Bước 1: Khởi tạo request
+        $ch = curl_init();
+
+        //** Bước 2: Thiết lập các tuỳ chọn
+        // Thiết lập URL trong request
+
+        curl_setopt($ch, CURLOPT_URL, "http://anvatzonzon.com/");
+
+        // Thiết lập để trả về dữ liệu request thay vì hiển thị dữ liệu ra màn hình
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        // ** Bước 3: thực hiện việc gửi request
+        $output = curl_exec($ch);
+        echo $output; // hiển thị nội dung
+
+        // ** Bước 4 (tuỳ chọn): Đóng request để giải phóng tài nguyên trên hệ thống
+
+        curl_close($ch);
+    }
+    public function actionAddCartJson()
+    {
+        $response = [
+            'result' => false,
+            'message' => 'Xử lý thất bại',
+            'data' => ''
+        ];
+        if (!Yii::$app->request->isAjax) {
+            $response = [
+                'result' => false,
+                'message' => 'Phương thức không hợp lệ',
+                'data' => ''
+            ];
+        }
+
+        $cart = Yii::$app->cart;
+        $dataGet = Yii::$app->request->get();
         if (!empty($dataGet)) {
             switch ($dataGet['action']) {
                 case 'add':
+                    $message = '';
+                    $this->actionValidateAddCart($dataGet, $message);
                     $product = Product::findOne($dataGet['product_id']);
-                    Yii::$app->session->setFlash('success', "Thêm vào giỏ hàng thành công");
+//                    Yii::$app->session->setFlash('success', "Thêm vào giỏ hàng thành công");
                     $cart->add($product, $dataGet['quantity']);
+                    $response = [
+                        'result' => true,
+                        'message' => 'Thêm giỏ hàng thành công',
+                        'data' => ''
+                    ];
                     break;
                 case 'update-all':
-                    Yii::$app->session->setFlash('success', "Cập nhật giỏ hàng thành công");
+//                    Yii::$app->session->setFlash('success', "Cập nhật giỏ hàng thành công");
                     foreach ($dataGet['products'] as $item) {
                         $product = Product::findOne($item['product_id']);
                         $cart->change($product->id, $item['quantity']);
                     }
+                    $response = [
+                        'result' => true,
+                        'message' => 'Cập nhật giỏ hàng thành công',
+                        'data' => ''
+                    ];
                     break;
                 case 'delete':
 
                 break;
             }
         }
-        $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
+        $this->responseJson($response);
+
     }
 
     public function saveBill ()
@@ -644,6 +732,17 @@ class SiteController extends BaseController
                     $modelBillDetail->save();
                 }
                 $cart->clear();
+                Yii::$app
+                    ->mailer
+                    ->compose(
+                        ['html' => 'order']
+//                ['user' => $user]
+                    )
+                    ->setFrom(['leanh.stu93@gmail.com' => 'tuananh'])
+                    ->setTo('leanh.stu93@gmail.com')
+                    ->setSubject('Dathangthanhcong ' . Yii::$app->name)
+                    ->send();
+
                 Yii::$app->session->setFlash('success', "Chúc mừng quý khách đặt hàng thành công, chúng tôi sẽ liên hệ quý khách sớm nhất!");
                 Yii::$app->response->redirect(['/site/save-bill-noti'])->send();
                 exit;
@@ -955,77 +1054,17 @@ class SiteController extends BaseController
         }
     }
 
-    public function actionGetQuizzJson()
+    public  function actionTestMail()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $data = [];
-        foreach (Quizz::find()->where(['active' => 1])->all() as $item) {
-            $data[] = [
-              'name' => $item->name,
-               'type' => "quizz-".$item->id,
-                'value' => ''
-            ];
-        }
-        echo Json::encode([
-            'result' => true,
-            'message' => 'success',
-            'data' => $data
-        ]);
-        exit;
-    }
-
-    private function showTextResult($popint)
-    {
-        if ($popint <= 2) {
-            return "Thấp";
-        } else if($popint <= 4) {
-            return "Trung Bình";
-        } else {
-            return "Cao";
-        }
-    }
-
-    /**
-     * 0 -> 2 co nguy co thap
-     * 3 -> 4 tb
-     * 5 -> 8 cao
-     */
-    public function actionSaveResult()
-    {
-        $response = [
-            'result' => false,
-            'data' => []
-        ];
-        $formData = json_decode($_POST['data'],true);
-        if (!empty($formData)) {
-            $dataSave = [];
-            $point = 0;
-            foreach ($formData as $item) {
-                if(strpos($item['type'], 'quizz') !== false) {
-                    $dataSave[] = $item;
-                    $point += (int)$item['value'];
-                }
-            }
-        }
-        if (!empty($dataSave)) {
-            $session = Yii::$app->session;
-            $form_id = $session->get('form_id');
-            $form = Form::find()->where(['id' => $form_id])->one();
-            $model = new Result();
-            $model->data = json_encode($dataSave,JSON_UNESCAPED_UNICODE);
-            $model->name = $form->name;
-            $model->phone = $form->phone;
-            $model->email = $form->phone;
-            $model->point = $point;
-            $model->status = 1;
-            $model->save();
-            $textResult = $this->showTextResult($point);
-            $response = [
-                'result' => true,
-                'data' => $textResult
-            ];
-        }
-        echo Json::encode($response);
-        exit;
+        Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'order']
+//                ['user' => $user]
+            )
+            ->setFrom(['leanh.stu93@gmail.com' => 'tuananh'])
+            ->setTo('leanh.stu93@gmail.com')
+            ->setSubject('Password reset for ' . Yii::$app->name)
+            ->send();
     }
 }

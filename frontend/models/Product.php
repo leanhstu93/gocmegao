@@ -30,6 +30,7 @@ use frontend\models\Base;
  * @property string $meta_title
  * @property string $meta_desc
  * @property string $meta_keyword
+ * @property string $unit_name
  */
 class Product extends Base
 {
@@ -64,7 +65,7 @@ class Product extends Base
         return [
             [[ 'name', 'date_update', 'seo_name'], 'required'],
             [['name'], 'unique','message'=>'Sản phẩm này đã thêm'],
-            [['desc','sku', 'content', 'option'], 'string'],
+            [['desc','sku', 'content', 'option', 'unit_name'], 'string'],
             [['count_view', 'user_id', 'date_update', 'target_blank', 'quantity'], 'integer'],
             [['weight', 'price', 'price_sale'], 'number'],
             [['sku'], 'string', 'max' => 50],
@@ -95,6 +96,7 @@ class Product extends Base
             'id' => 'ID',
             'name' => 'Tiêu đề',
             'sku' => 'Sku',
+            'unit_name' => 'Đơn vị',
             'brand_name' => 'Thương hiệu',
             'desc' => 'Mô tả',
             'content' => 'Nội dung',
@@ -138,7 +140,7 @@ class Product extends Base
 
         $query->andFilterWhere([
             'id'=>$this->id,
-            'status'=>$this->status,
+            'option'=>$this->option,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
@@ -174,8 +176,21 @@ class Product extends Base
     }
 
     public function getCategory() {
+
         return $this->hasMany(ProductCategory::className(), ['id' => 'category_id'])
             ->viaTable('rl_product_category', ['product_id' => 'id']);
+    }
+
+    public function renderCategoryCol() {
+        $arrIds = RlProductCategory::getCategoryIds($this->id);
+        $dataProduct = ProductCategory::find()->where(['in', 'id', $arrIds])->orderBy(Product::ORDER_BY)->all();
+        $result = '';
+
+        foreach ($dataProduct as $item) {
+            $result .= ','.$item->name;
+        }
+        $result = trim($result,',');
+       return $result;
     }
     public function getCategoryIds()
     {
@@ -217,13 +232,31 @@ class Product extends Base
     public function getPriceFinalFormat()
     {
         $res = Yii::$app->view->params['lang']->contact;
+        $dvt = '';
+
+        if ($this->unit_name) {
+            $dvt = '/'.$this->unit_name;
+        }
 
         if ($this->price_sale > 0) {
-            return number_format($this->price_sale).'đ';
+            return number_format($this->price_sale).'đ'.$dvt;
         }
 
         if($this->price > 0) {
-            $res = number_format($this->price) .'đ';
+            $res = number_format($this->price) .'đ'.$dvt;
+        }
+        return $res;
+    }
+
+    public function getPriceFinal()
+    {
+        $res = 0;
+        if ($this->price_sale > 0) {
+            return $this->price_sale;
+        }
+
+        if($this->price > 0) {
+            $res = $this->price;
         }
         return $res;
     }

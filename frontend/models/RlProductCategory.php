@@ -51,6 +51,13 @@ class RlProductCategory extends \yii\db\ActiveRecord
         return array_column($idProducts,'product_id');
     }
 
+    public static function getCategoryIds($idProduct)
+    {
+        $idProducts = self::find()->where(['product_id' => $idProduct])->asArray()->all();
+
+        return array_column($idProducts,'category_id');
+    }
+
     public function getProductIdsRL($idProduct)
     {
         $RL = self::find()->where(['product_id' => $idProduct])->asArray()->all();

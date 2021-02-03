@@ -39,7 +39,7 @@ class Company extends Base
     {
         return [
             [['count_visit'], 'integer'],
-            [['name', 'address', 'favicon', 'logo', 'email', 'fax', 'tel', 'phone', 'facebook', 'twitter', 'google', 'youtube','meta_title','meta_keyword', 'meta_desc'], 'string', 'max' => 255],
+            [['name', 'address', 'favicon', 'logo','image', 'email', 'fax', 'tel', 'phone', 'facebook', 'twitter', 'google', 'youtube','meta_title','meta_keyword', 'meta_desc'], 'string', 'max' => 255],
         ];
     }
 
@@ -54,6 +54,7 @@ class Company extends Base
             'address' => 'Địa chỉ',
             'favicon' => 'Favicon',
             'logo' => 'Logo',
+            'image' => 'Hình ảnh',
             'email' => 'Email',
             'fax' => 'Fax',
             'tel' => 'Tel',

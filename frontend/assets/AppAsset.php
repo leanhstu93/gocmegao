@@ -17,6 +17,7 @@ class AppAsset extends AssetBundle
         'css/style.css',
         'css/jquery-ui.min.css',
         'css/responsive.css',
+        'css/style-root.css',
 //        'libs/slick/slick.css',
 //        'libs/fontawesome/css/all.css',
 //        'libs/fontawesome/css/fontawesome.css',
@@ -36,6 +37,7 @@ class AppAsset extends AssetBundle
         'js/jquery.countdown.js',
         'js/main.js',
         'js/jquery.fancybox.js',
+        'js/main-root.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

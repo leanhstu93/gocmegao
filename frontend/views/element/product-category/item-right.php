@@ -1,5 +1,4 @@
-
-<div class="col-lg-3 col-sm-6">
+<div class="col-lg-12 col-sm-12">
     <div class="product-box">
         <div class="imagebox">
             <span class="item-new">NEW</span>
@@ -9,12 +8,8 @@
             <!-- /.box-image -->
             <div class="box-content">
                 <div class="cat-name"> <a href="<?php echo $data->getUrl() ?>" title="">Tên chủ đề danh mục</a> </div>
-                <div class="product-name">
-                    <a href="<?php echo $data->getUrl() ?>" title=""><?php echo $data->name ?></a>
-                </div>
-                <div class="price"> <span class="sale"><?php echo $data->getPriceFinalFormat() ?></span>
-                    <span class="regular"><?= $data->getPriceFormat() ?></span>
-                </div>
+                <div class="product-name"> <a href="<?php echo $data->getUrl() ?>" title=""><?php echo $data->name ?></a> </div>
+                <div class="price"> <span class="sale"><?php echo $data->getPriceFinalFormat() ?></span> <span class="regular"><?= $data->getPriceFormat() ?></span> </div>
             </div>
             <!-- /.box-content -->
             <div class="box-bottom">

@@ -43,7 +43,7 @@ use yii\widgets\ActiveForm;
                     </span>
                 </div>
                     </div>
-
+                <?= $form->field($model, 'unit_name')->textInput() ?>
                     <?= $form->field($model, 'price')->textInput() ?>
 
                     <?= $form->field($model, 'price_sale')->textInput() ?>

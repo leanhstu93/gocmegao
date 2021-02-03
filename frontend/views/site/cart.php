@@ -8,13 +8,17 @@ use frontend\models\Product;
  * @var $bread
  */
 
-echo $this->render("//element/page-title",['name' => 'Giỏ hàng', 'bread' => $bread]);
+echo $this->render("//element/breadcrumb",[ 'data' => $bread]);
 $cart = Yii::$app->cart;
 ?>
 <!--Start cart area-->
 <section class="cart-area">
     <div class="container">
-        <form action="/site/add-cart/" method="get">
+        <div class="flat-row-title style1">
+            <h3>Giỏ hàng</h3>
+        </div>
+
+        <form action="/site/update-all-cart/" method="get" class="ta-js-form-all-cart">
             <div class="row">
 
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -51,14 +55,18 @@ $cart = Yii::$app->cart;
                                     </div>
                                 </td>
                                 <td class="qty">
-                                    <input class="quantity-spinner" type="text" value="<?= $item->getQuantity() ?>" name="products[<?= $i ?>][quantity]">
+                                    <input class="quantity-spinner ta-js-item-quantity"
+                                           data-product_id="<?php echo $product->id ?>"
+                                           type="text" value="<?= $item->getQuantity() ?>"
+                                           name="products[<?= $i ?>][quantity]">
                                 </td>
                                 <td class="price"><?= $product->getPriceFormat() ?></td>
                                 <td class="sub-total"><?= number_format($item->getCost()) ?></td>
                                 <td>
-                                    <a href="/cart/?action=delete&product_id=<?= $product->id ?>">
+                                    <a href="/site/delete-cart?product_id=<?= $product->id ?>">
                                         <div class="remove">
-                                            <span class="icon-cross"></span>
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+
                                         </div>
                                     </a>
                                 </td>
@@ -72,7 +80,6 @@ $cart = Yii::$app->cart;
             <div class="row cart-middle">
                 <div class="col-xl-6 col-lg-9 col-md-8 col-sm-12">
                     <div class="apply-coupon">
-
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-3 col-md-4 col-sm-12">
@@ -81,7 +88,7 @@ $cart = Yii::$app->cart;
                     </div>
 
                     <div class="update-cart pull-right">
-                        <button class="btn-one thm-bg-clr" name="action" value="update-all" type="submit">Cập nhật</button>
+                        <button class="btn-one thm-bg-clr" name="action" value="update-all">Cập nhật</button>
                     </div>
 
                 </div>
@@ -96,7 +103,7 @@ $cart = Yii::$app->cart;
                     <ul class="cart-total-table">
                         <li class="clearfix">
                             <span class="col col-title">Tổng cộng</span>
-                            <span class="col"><?= number_format($cart->getTotalCost()) ?></span>
+                            <span class="col css_total-carts"><?= number_format($cart->getTotalCost()) ?></span>
                         </li>
                     </ul>
                 </div>
@@ -107,4 +114,4 @@ $cart = Yii::$app->cart;
 </section>
 <!--End cart area-->
 
-<?php echo $this->render("//element/news-letter-home"); ?>
+<?php # echo $this->render("//element/news-letter-home"); ?>

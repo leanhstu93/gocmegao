@@ -38,6 +38,17 @@ return [
                 ],
             ]
         ],
+        'mn_manager_order' => [
+            'name' => 'Quản lý đơn hàng',
+            'link' => '',
+            'icon' => '<i class="site-menu-icon wb-layout" aria-hidden="true"></i>',
+            'submenu' => [
+                'submenu_1' => [
+                    'name' => 'Danh sách',
+                    'link' => 'bill/index'
+                ],
+            ]
+        ],
 
         'mn_manager_banner' => [
             'name' => 'Quản lý banner',

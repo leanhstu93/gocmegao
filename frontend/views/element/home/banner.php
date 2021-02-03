@@ -21,17 +21,21 @@ use frontend\models\Banner;
                             <div class="slider-item style2">
                                 <div class="item-text">
                                     <div class="header-item">
-                                        <p>Thực phẩm đông lạnh: </p>
-                                        <h2 class="name">THỊ BÒ TƯƠI <span>NHẬP KHẨU</span></h2>
+<!--                                        <p>Thực phẩm đông lạnh: </p>-->
+                                        <h2 class="name"><?php echo $item->name ?> </h2>
                                     </div>
                                     <div class="divider65"></div>
                                     <div class="content-item">
-                                        <div class="price"> <span class="sale">500.000 đ</span> <span class="btn-shop"> <a href="#" title="">Mua ngay <img src="images/right-2.png" alt=""></a> </span>
+                                        <div class="price">
+                                            <span class="sale"><?php echo $item->desc ?></span>
+                                            <span class="btn-shop">
+                                                <a href="<?php echo $item->link ?>" title="">Mua ngay
+                                                    <img src="images/right-2.png" alt="">
+                                                </a>
+                                            </span>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
-                                    <div class="regular"> 650.000 đ </div>
-
                                 </div>
                                 <div class="item-image">
                                     <img src="/<?php echo $item->image ?>" alt=""> </div>

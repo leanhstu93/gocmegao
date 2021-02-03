@@ -56,6 +56,9 @@ class ProductController extends BaseController
 
         if (!empty($formData)) {
             $model->load($formData);
+            if(!empty($model->option)) {
+                $model->option = implode(',',$model->option);
+            }
             $model->user_id = Yii::$app->user->identity->id;
             $model->date_update = time();
             $model->count_view = 1;
@@ -209,6 +212,7 @@ class ProductController extends BaseController
         } else {
             $model =  ConfigPage::find()->where(['id' => ConfigPage::TYPE_PRODUCT])->one();
         }
+        $dataLang=[];
 
         # language
         $listLanguage = Yii::$app->params['listLanguage'];

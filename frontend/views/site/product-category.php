@@ -18,56 +18,49 @@ if (!empty($categories)) {
     $page_des = '';
     $category_id =0;
 }
-
-echo $this->render("//element/page-title",['name' => $page_title, 'bread' => $bread]);
-$banner_top = Banner::getDataByCustomSetting('one_banner_top_service');
-
+echo $this->render("//element/breadcrumb",['name' => $page_title, 'data' => $bread]);
 ?>
-<div class="banner-top-product-category w100">
-    <div class="container">
-        <img width="100%" src="<?= $banner_top->images->image ?>" />
-    </div>
-</div>
-<!-- Services Single -->
-<div class="single-service sp-two">
-    <div class="container">
-        <div class="row flex-lg-row-reverse">
 
-            <!--Content Column-->
-            <div class="content-column col-lg-8 col-xl-9">
-                <div class="inner-column">
-                    <div class="top-content">
-                        <h4> Hdesign thiết kế chuyên nghiệp - Digital Marketing </h4>
-                        <h2><?php echo$page_title ?></h2>
-                        <div class="text">
-                            <?= $page_des ?>
-                        </div>
-                    </div>
+<div class="container">
+    <div class="row box-product-list">
 
-                    <!--What We do -->
-                    <div class="what-we-do">
-                        <div class="row">
-                            <?php
-                            foreach ($data as $item) {
-                                ?>
-                                <?php echo $this->render("//element/product-category/item",['data' => $item,]); ?>
-                            <?php } ?>
-                        </div>
-                        <?php
-                        echo LinkPager::widget([
-                            'pagination' => $pages,
-                        ]);
-                        ?>
-                    </div>
+        <div class="box-product col-lg-9 col-sm-12 float-right">
+            <div class="row">
+                <?php
+                foreach ($data as $item) {
+                    echo $this->render("//element/product-category/item",['data' => $item,]);
+                 } ?>
 
+
+            </div>
+            <div class="pagination_text">
+                <?php
+                echo LinkPager::widget([
+                    'pagination' => $pages,
+                ]);
+                ?>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-12 float-right">
+            <div class="box-right-list-pro">
+                <h3 class="title-list-pro">Sản phẩm nổi bật</h3>
+                <div class="row right_pro">
+                    <?php
+                    # sp moi
+                    $data = Product::find()
+                        ->where(['active' => 1])
+                        ->andWhere(new \yii\db\Expression('FIND_IN_SET(:option,`option`) > 0'))
+                        ->addParams([':option' => Product::OPTION_HOT])
+                        ->limit(4)
+                        ->orderBy(Product::ORDER_BY)->all();
+                    foreach ($data as $item) {
+                        echo $this->render("//element/product-category/item-right", ['data' => $item]);
+                    } ?>
                 </div>
             </div>
-
-            <!--Content Column-->
-            <?php echo $this->render("//element/product-category/left",['data' => $categoryChild]); ?>
-
         </div>
+
     </div>
 </div>
-
-<?php echo $this->render("//element/news-letter-home"); ?>

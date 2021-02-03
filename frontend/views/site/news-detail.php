@@ -8,77 +8,55 @@ use frontend\models\Product;
  * @var $bread
  */
 
-//echo $this->render("//element/page-title",['name' => $data->name, 'bread' => $bread]);
+echo $this->render("//element/breadcrumb",['data' => $bread]);
 ?>
-<div class="w1000">
-    <div class="content content-page page-home w100">
-        <div class="page-left">
-            <div class="title-detail w100">
-                <?php echo $data->name ?>
-            </div>
-            <div class="breadcrumb w100">
-                <ul>
-                    <li>
-                        <?php echo date('d-m-Y H:i') ?>
-                    </li>
-                    <li class="arrow">|</li>
-                    <li>
-                        <?php echo $data->category->name ?>
-                    </li>
-                </ul>
-                <ul class="breadcrumb-social">
-                    <li>
-                        <div class="fb-like" data-href="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-                    </li>
-                </ul>
-            </div>
 
-            <div class="text-description">
+<div class="container">
+
+    <div class="row box-product-list">
+
+        <div class="box-product col-lg-9 col-sm-12" style="float: right;">
+            <p class="flat-row-title">
+            <h3 class="title-detail-ar"> <?php echo $data->name ?> </h3>
+            </p>
+            <p class="des-short">
                 <?php echo $data->desc ?>
-            </div>
-            <div class="w100 text-content">
+            </p>
+            <div class="des-ar">
                 <?php echo $data->content ?>
             </div>
+        </div>
 
-            <div class="w100 wrapper-social-bottom">
-                <div class="fb-like" data-href="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-            </div>
-            <div class="wrapper-tags w100">
-                <div class="tags-left">
-                    <i class="fas fa-tags"></i> Tags
-                </div>
-                <div class="tags-right">
-                    <ul>
-                        <?php echo $data->tags ?>
+        <div class="col-lg-3 col-sm-12 pull-left">
+            <div class="box-right-list-pro">
+                <h3 class="title-list-pro">Tin tức liên quan</h3>
+                <div class="box-product">
+                    <ul class="list-ar-relate">
+                        <?php
+                        foreach ($dataRL as $item) {
+                        ?>
+                        <li><a href="<?php echo $item->getUrl() ?>"><i class="fa fa-angle-double-right" aria-hidden="true"></i><?php echo $item->name ?></a></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
-            <?php  echo $this->render("//element/comment"); ?>
-            <div class="w100 border_bottom">
-            </div>
-            <div class="wrapper-news-relates w100">
-                <div class="block-title w100">
-                    <i class="gachccm"></i>
-                    <?php echo Yii::$app->view->params['lang']->same_category ?>
-                </div>
-                <div class="block-content w100">
+
+            <div class="box-right-list-pro">
+                <h3 class="title-list-pro">Sản phẩm nổi bật</h3>
+                <div class="row">
                     <?php
-                    foreach ($dataRL as $item) {
-                    ?>
-                    <div class="item">
-                        <a href="<?php echo $item->getUrl() ?>">
-                            <div class="w100 wrapper-image">
-                                <img src="<?php echo $item->image ?>" class="w100">
-                            </div>
-                            <div class="tittle w100">
-                                <?php echo $item->name ?>
-                            </div>
-                        </a>
-                    </div>
-                    <?php } ?>
+                    # sp moi
+                    $dataProductHot = Product::find()
+                        ->where(['active' => 1])
+                        ->andWhere(new \yii\db\Expression('FIND_IN_SET(:option,`option`) > 0'))
+                        ->addParams([':option' => Product::OPTION_HOT])
+                        ->limit(4)
+                        ->orderBy(Product::ORDER_BY)->all();
+                    foreach ($dataProductHot as $item) {
+                        echo $this->render("//element/product-category/item-right", ['data' => $item]);
+                    } ?>
                 </div>
             </div>
         </div>
-        <?php  echo $this->render("//element/sidebar"); ?>
     </div>
 </div>

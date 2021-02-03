@@ -1,6 +1,8 @@
 <?php
 
+use frontend\models\ProductCategory;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 use kartik\grid\GridView;
@@ -33,6 +35,15 @@ $scrollingTop = 10;
                         'attribute' => 'name',
                     ],
                     [
+                        'attribute' => 'price',
+                        'format'=>'raw',
+                        'filter' => false,
+                        'value' => function ($data) {
+                            return number_format($data->price) .'đ'. "|".number_format($data->price_sale) .'đ';
+                        }
+                    ],
+
+                    [
                         'attribute' => 'image',
                         'format'=>'raw',
                          'filter' => false,
@@ -40,6 +51,23 @@ $scrollingTop = 10;
                             return Html::img('/'.$data['image'],
                                 ['width' => '60px']);
                         }
+                    ],
+                    [
+                        'label' => 'Danh mục',
+                        'attribute' => 'category_id',
+                        'vAlign'=>'middle',
+                        'width'=>'200px',
+                        'format'=>'raw',
+                         'value' => function ($data) {
+                            return $data->renderCategoryCol();
+                        },
+                        'filter'=> ArrayHelper::map(ProductCategory::find()->asArray()->all(), 'id', 'name'),
+                        'filterInputOptions' => [
+                            'class' => 'form-control',
+                            'prompt' => 'Chọn'
+                        ],
+
+//                        'filter'=>ArrayHelper::map(NewsCategory::find()->asArray()->all(), 'id', 'name'),
                     ],
                     [
                         'attribute' => 'option',

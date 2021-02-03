@@ -8,9 +8,11 @@ use frontend\models\Product;
  * @var $bread
  */
 
-echo $this->render("//element/page-title",['name' => 'Giỏ hàng', 'bread' => $bread]);
+echo $this->render("//element/breadcrumb",[ 'data' => $bread]);
 $cart = Yii::$app->cart;
 ?>
+<section class="flat-checkout">
+<div class="container">
 <!--Start Checkout area-->
 <form method="get" action="/save-bill">
     <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
@@ -170,6 +172,8 @@ $cart = Yii::$app->cart;
     </div>
 </section>
 </form>
+</div>
+</section>
 <!--End Checkout area-->
 
-<?php echo $this->render("//element/news-letter-home"); ?>
+<?php # echo $this->render("//element/news-letter-home"); ?>

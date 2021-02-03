@@ -40,6 +40,16 @@ use yii\widgets\ActiveForm;
                 'model' => $model,
             ])->textInput(['class' => 'js__image-value form-control']) ?>
 
+            <?= $form->field($model, 'image',['template' => '<label class="control-label" for="company-logo">{label}</label><div class="input-group input-group-file js__select-image">{input}<span class="input-group-btn">
+                      <span class="btn btn-success btn-file">
+                        <i class="icon wb-upload" aria-hidden="true"></i>
+                       
+                      </span>
+                    </span></div>'], [
+                'buttonLabel' => 'Chọn hình',
+                'model' => $model,
+            ])->textInput(['class' => 'js__image-value form-control']) ?>
+
             <?= $form->field($model, 'email')->textInput(['class' => 'form-control'])?>
 
             <?= $form->field($model, 'fax')->textInput(['class' => 'form-control'])?>

@@ -9,11 +9,9 @@ use Yii\helpers\Url;
         foreach ($this->params['menu'] as $item) {
             $class_sub = !empty($item['sub_menu']) ? 'dropdown' : '';
             ?>
-            <li class="column-1">
-            <a href="<?= $item['link'] ?>"><?= $item['name'] ?></a>
             <?php
             if (!empty($item['sub_menu'])) { ?>
-                <ul class="submenu">
+
                 <?php foreach ($item['sub_menu'] as $item1) {
                     $class_sub = !empty($item1['sub_menu']) ? 'dropdown' : '';
                     ?>
@@ -38,10 +36,10 @@ use Yii\helpers\Url;
                         <?php } ?>
                     </li>
                 <?php } ?>
-                </ul>
+
             <?php } ?>
 
-            </li>
+
         <?php } ?>
     </ul>
     <!-- /.menu -->

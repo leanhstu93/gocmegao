@@ -8,6 +8,7 @@ use frontend\models\Router;
 use frontend\models\Sessions;
 use frontend\models\SinglePage;
 use Yii;
+use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -19,6 +20,7 @@ use frontend\models\Product;
 use frontend\models\News;
 use frontend\models\ProductCategory;
 use frontend\models\NewsCategory;
+use yii\web\Response;
 
 class BaseController extends Controller
 {
@@ -279,4 +281,10 @@ class BaseController extends Controller
         ]);
     }
 
+    public function responseJson($data)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        print_r(Json::encode($data));
+        exit;
+    }
 }

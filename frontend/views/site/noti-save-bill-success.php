@@ -7,8 +7,8 @@ use frontend\models\Product;
  * @var $pages
  * @var $bread
  */
-
-echo $this->render("//element/page-title",['name' => 'Thanh toán', 'bread' => $bread]);
+$page_title = '';
+echo $this->render("//element/breadcrumb",['name' => $page_title, 'data' => $bread]);
 $cart = Yii::$app->cart;
 ?>
 <section class="cart-area">

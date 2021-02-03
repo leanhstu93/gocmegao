@@ -6,253 +6,156 @@ use yii\widgets\LinkPager;
  * @var $bread
  * @var $dataRL
  */
-echo $this->render("//element/page-title",['name' => $data->name, 'bread' => $bread]);
-
+echo $this->render("//element/breadcrumb",[ 'data' => $bread]);
 ?>
 
-<!--Start shop area-->
-<section id="shop-area" class="single-shop-area">
+<section class="flat-product-detail">
     <div class="container">
         <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="shop-content">
-                    <!--Start single shop content-->
-                    <div class="single-shop-content">
-                        <div class="row">
-
-                            <div class="col-lg-6">
-                                <div class="img-holder">
-                                    <div class="swiper-container gallery-top js__slider-top">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="<?= $data->image ?>" alt="<?=  $data->name ?>">
-                                            </div>
-                                            <?php
-                                            foreach ($dataImages as $item) { ?>
-                                                <div class="swiper-slide">
-                                                    <img src="<?= $item->image ?>" alt="<?=  $data->name ?>">
-                                                </div>
-                                         <?php   }                                           ?>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-container gallery-thumbs js__gallery-thumbs">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <img src="<?= $data->image ?>" alt="<?=  $data->name ?>">
-                                            </div>
-                                            <?php
-                                            foreach ($dataImages as $item) { ?>
-                                                <div class="swiper-slide">
-                                                    <img src="<?= $item->image ?>" alt="<?=  $data->name ?>">
-                                                </div>
-                                            <?php   }                                           ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="content-box">
-                                    <span class="price"><?= $data->getPriceFormat() ?> đ</span>
-                                    <h3><?= $data->name ?></h3>
-                                    <div class="review-box">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="text">
-                                        <?= $data->desc ?>
-                                    </div>
-
-                                    <div class="addto-cart-box">
-                                        <form action="/site/add-cart" method="get">
-                                        <input class="quantity-spinner" type="text" value="1" name="quantity">
-                                            <input name="product_id" value="<?= $data->id ?>">
-                                            <input name="action" value="add" type="hidden">
-                                            <button class="btn-one thm-bg-clr addtocart" type="submit">
-                                                Thêm vào giỏ hàng
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="share-products">
-                                        <h5>Chia sẻ ngay</h5>
-                                        <ul class="sociallinks-style-two fix">
-                                            <li><a href="#"><i class="fab fa-facebook-square fb" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-twitter-square tw" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-google-plus-square pin" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-linkedin lin" aria-hidden="true"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+            <div class="col-md-6">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li data-thumb="images/product/flexslider/l01.jpg">
+                            <img src="<?= $data->image ?>" alt="<?=  $data->name ?>">
+                            <span>NEW</span>
+                        </li>
+                        <?php
+                        foreach ($dataImages as $item) { ?>
+                            <li data-thumb="<?= $item->image ?>">
+                                <img src="<?= $item->image ?>" alt="<?=  $data->name ?>" />
+                            </li>
+                        <?php   } ?>
+                    </ul><!-- /.slides -->
+                </div><!-- /.flexslider -->
+            </div><!-- /.col-md-6 -->
+            <div class="col-md-6">
+                <div class="product-detail">
+                    <div class="header-detail">
+                        <h1 class="name"><?php echo $data->name ?></h1>
+                        <div class="content-detail">
+                            <div class="info-text">
+                                <?php echo $data->desc ?>
                             </div>
                         </div>
-                    </div>
-                    <!--End single shop content-->
-                    <!--Start product tab box-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="product-tab-box tabs-box">
-                                <ul class="tab-btns tab-buttons clearfix">
-                                    <li data-tab="#desc" class="tab-btn"><span>Mô tả</span></li>
-                                    <li data-tab="#review" class="tab-btn active-btn"><span>Đánh giá (2)</span></li>
-                                </ul>
-                                <div class="tabs-content">
-                                    <div class="tab" id="desc">
-                                        <div class="product-details-content">
-                                            <div class="desc-content-box">
-                                                <?= $data->content ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab active-tab" id="review">
-                                        <div class="review-box-holder">
-                                            <div class="row">
-                                                <!--Start single review box-->
-                                                <div class="col-xl-6">
-                                                    <div class="single-review-box">
-                                                        <div class="icon-holder">
-                                                            <span class="icon-user-1"></span>
-                                                        </div>
-                                                        <div class="text-holder">
-                                                            <div class="top">
-                                                                <div class="name">
-                                                                    <h3>Steven Rich <span>– September 17, 2019:</span></h3>
-                                                                </div>
-                                                                <div class="review-box">
-                                                                    <ul>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star-half-alt"></i></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="text">
-                                                                <p>Value for money , I use it from long time and it is very useful and good product.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--End single review box-->
-                                                <!--Start single review box-->
-                                                <div class="col-xl-6">
-                                                    <div class="single-review-box">
-                                                        <div class="icon-holder">
-                                                            <span class="icon-user-1"></span>
-                                                        </div>
-                                                        <div class="text-holder">
-                                                            <div class="top">
-                                                                <div class="name">
-                                                                    <h3>William Cobus <span>– September 17, 2019:</span></h3>
-                                                                </div>
-                                                                <div class="review-box">
-                                                                    <ul>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                        <li><i class="fa fa-star"></i></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="text">
-                                                                <p>We denounce with righteous indignation and dislike men who are so beguiled & demoralized.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--End single review box-->
-                                            </div>
-                                        </div>
-                                        <div class="review-form">
-                                            <div class="title">
-                                                <h3>Add Your Review</h3>
-                                                <span>Your email address will not be published. Required fields are marked *</span>
-                                            </div>
-
-                                            <form id="review-form" action="#">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="field-label">
-                                                            <p>Name<span>*</span></p>
-                                                            <input type="text" name="fname" required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="field-label">
-                                                            <p>Email<span>*</span></p>
-                                                            <input type="email" name="email" required="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xl-12">
-                                                        <div class="add-rating-box">
-                                                            <div class="add-rating-title">
-                                                                <h4>Your Rating</h4>
-                                                            </div>
-                                                            <div class="review-box">
-                                                                <ul>
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="field-label">
-                                                            <p>Your Comments<span>*</span></p>
-                                                            <textarea name="review" required=""></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <button class="theme-btn btn-style-one" type="submit">Submit Now<span class="icon-thin-right-arrow"></span></button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                </div>
+                        <div class="product-id">
+                            Mã: <span class="id">#GMG-<?php echo $data->id ?></span>
+                        </div>
+                        <div class="reviewed">
+                            <div class="status-product">
+                                Tình trạng <span> Còn hàng</span>
                             </div>
                         </div>
-                    </div>
-                    <!--End product tab box-->
-                    <!--Start related product box-->
-                    <div class="related-product">
-                        <div class="title">
-                            <h3>Related Products</h3>
-                        </div>
-                        <div class="row">
-                            <?php
-                            foreach ($dataRL as $item) {
-                                ?>
-                                <?php echo $this->render("//element/product-category/item",['data' => $item,]); ?>
+                        <div style="clear: both;"></div>
+                        <ul class="price">
+                            <li>
+                                <div class="sale">
+                                    <?php echo $data->getPriceFinalFormat() ?>
+                                </div>
+                            </li>
+                            <?php if($data->price_sale > 0) { ?>
+                            <li>
+                                <div class="regular">
+                                    <?php echo $data->getPriceFormat() ?>
+                                </div>
+                            </li>
                             <?php } ?>
-
-                        </div>
+                        </ul>
                     </div>
-                    <!--End related product box-->
+
+                    <div class="footer-detail ta-js-params-add-cart">
+                        <div class="quanlity-box" >
+                            <div class="quanlity">
+                                <span class="btn-down"></span>
+                                <input type="number" name="number" class="ta-js-quantity" value="1" min="1" max="100" placeholder="Số lượng">
+                                <span class="btn-up"></span>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div><!-- /.quanlity-box -->
+                        <div class="box-cart style2">
+                            <div class="btn-add-cart">
+                                <a href="#" title="" data-product_id="<?= $data->id ?>" class="ta-js-add-cart"><img src="images/icons/add-cart.png" alt="">Thêm vào giỏ hàng</a>
+                            </div>
+                        </div><!-- /.box-cart -->
+                        <div class="social-single">
+                            <span>Chia sẻ</span>
+                            <div class="wrapper-social-share">
+                                <div class="fb-like" data-href="http://<?php echo $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'] ?>" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                                <ul class="social-list style2">
+                                    <li>
+                                        <a href="#" title="">
+                                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="">
+                                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="">
+                                            <i class="fa fa-instagram" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="">
+                                            <i class="fa fa-pinterest" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="">
+                                            <i class="fa fa-dribbble" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="">
+                                            <i class="fa fa-google" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul><!-- /.social-list -->
+                            </div>
+
+                        </div><!-- /.social-single -->
+                    </div><!-- /.footer-detail -->
+
+
                 </div>
-            </div>
 
+                <!-- /.product-detail -->
+            </div><!-- /.col-md-6 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.flat-product-detail -->
+<section class="flat-product-content">
+    <ul class="product-detail-bar">
+        <li class="active">Mô tả</li>
+        <li>Đánh gía</li>
+    </ul><!-- /.product-detail-bar -->
+    <div class="container">
+        <div class="row">
+            <?= $data->content ?>
         </div>
-    </div>
-</section>
-<!--End shop area-->
+        <div class="row">
+            <div class="w-100">
+            <?php echo $this->render("//element/comment"); ?>
+            </div>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section><!-- /.flat-product-content -->
 
-
-<?php echo $this->render("//element/news-letter-home"); ?>
-
+<section class="flat-imagebox style4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="flat-row-title">
+                    <h3>Sản phẩm liên quan</h3>
+                </div>
+            </div><!-- /.col-md-12 -->
+        </div><!-- /.row -->
+        <div class="owl-loaded owl-drag row">
+            <?php
+            foreach ($dataRL as $item) {
+                ?>
+                <?php echo $this->render("//element/home/item-product",['data' => $item,]); ?>
+            <?php } ?>
+        </div>
+</section><!-- /.flat-imagebox style4 -->
